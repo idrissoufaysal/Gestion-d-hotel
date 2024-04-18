@@ -1,54 +1,105 @@
-.navbar{
-    height: 50px;
-    background-color: rgba(11, 34, 138, 0.4);
-    display:flex;
-    justify-content:center;
-    .navContainer{
-        width: 100%;
-        max-width: 1024px;
-        color: white;
-        justify-content: space-between;
-        align-items: center;
-        display: flex;
-        span{
-            font-weight: 700;
-            color: yellow;
-        }
-        .button{
-            display: flex;
-            gap: 5px;
-            .navButton{
-                padding: 10px 20px;
-                border: none;
-                color: blue;
-                cursor: pointer;
-            }
-        }
+@import "./variable.scss";
 
+.navbar {
+  height: 50px;
+  background-color: $couleur-principale;
+  display: flex;
+  justify-content: center;
+  .navContainer {
+    width: 100%;
+    max-width: 1024px;
+    color: white;
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+    span {
+      font-weight: 700;
+      color: yellow;
     }
-   
+    .button {
+      display: flex;
+      gap: 5px;
+      .navButton {
+        padding: 10px 20px;
+        border: none;
+        color: $couleur-principale;
+        cursor: pointer;
+      }
+    }
+  }
 }
 
-.header{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    .headerContainer{
-        height:50px;
-        width:100%;
-        max-width:1024px;
-        background-color: blue;
-        .items{
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            .item{
-                padding: 10px;
-                display: flex;
-                gap: 2px;
-                border: 1px solid white;
-            }
-        }
-
+.header {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  background-color: $couleur-principale;
+  color: $gris-clair;
+  .headerContainer {
+    width: 100%;
+    max-width: 1024px;
+    margin: 20px 0px 100px 0px;
+    .items {
+      display: flex;
+      gap: 40px;
+      color: white;
+      margin-bottom: 50px;
+      .item {
+        padding: 10px;
+        display: flex;
+        gap: 5px;
+        align-items: center;
+      }
+      .item.active {
+        border: 2px solid $jaune-moutarde;
+        border-radius: 20px;
+        align-items: center;
+      }
     }
+    .headerTitle {
+    }
+    h1 {
+    }
+    p {
+      text-align: justify;
+      margin: 20px 0px;
+    }
+    button {
+      background-color: rgba(40, 143, 233); /* Opacité réglée sur 0.5 (50%) */
+
+      color: white;
+      padding: 10px;
+      border: none;
+      cursor: pointer;
+      font-weight: 500;
+      border-radius: 3px;
+    }
+    .headerSearch {
+      display: flex;
+      height: 30px;
+      border: 3px solid $jaune-moutarde;
+      background-color: white;
+      align-items: center;
+      justify-content: space-around;
+      color: $couleur-principale;
+      padding: 20px 0px;
+      border-radius: 5px;
+      margin-top: 5px;
+      width: 100%;
+      max-width: 1024px;
+      position: absolute;
+      bottom: -20px;
+      .headerSearchItem {
+        display: flex;
+        align-items: center;
+        input{
+            border: none;
+            outline: none;
+        }
+        .headerBtn{
+            font-weight: 500;
+        }
+      }
+    }
+  }
 }
