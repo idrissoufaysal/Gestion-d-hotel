@@ -3,7 +3,22 @@ import FlightIcon from "@mui/icons-material/Flight";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import LocalTaxiIcon from "@mui/icons-material/LocalTaxi";
 
+import { DateRange,Range } from "react-date-range";
+import "react-date-range/dist/styles.css"; // main css file
+import "react-date-range/dist/theme/default.css"; // theme css file
+import {format } from "date-fns"
+import { useState } from "react";
+import { DateSeletion } from "../utils/types";
+
+
+
 const Header = () => {
+  const [openDate,setOpenDate]=useState(false)
+  const [date, setDate] = useState<DateSeletion[]>([{
+    startDate: new Date(),
+    endDate: new Date(),
+    key: "seletion",
+  }]);
   return (
     <div className="header">
       <div className="headerContainer">
@@ -33,7 +48,7 @@ const Header = () => {
           l'oiseau sur le baobabe ne doit jamais qu'il a porter des Lunette et
           aussi la genille ne porte de lunette quand elle boie l'eau
         </p>
-        <button>Sign in / Register</button>
+        <button className="btn">Sign in / Register</button>
         <div className="headerSearch">
           <div className="headerSearchItem">
             <FlightIcon />
@@ -41,14 +56,21 @@ const Header = () => {
           </div>
           <div className="headerSearchItem">
             <FlightIcon />
-            <span>date to date</span>
+            <span onClick={()=>set} >{`${format(date[0].startDate,"dd/MM/yyyy")} au ${format(date[0].endDate,"dd/MM/yyyy")}`}</span>
+           {!openDate && <DateRange
+              editableDateInputs={true}
+              onChange={(item:Range) => setDate([item.selection as DateSeletion])}
+              moveRangeOnFirstSelection={false}
+              ranges={date} // Remarquez que je mets date entre crochets pour créer un tableau de date, car DateRange attend un tableau pour les plages de dates
+              className="date"
+            />}
           </div>
           <div className="headerSearchItem">
             <FlightIcon />
             <span>2 adults 2 childreen 1 room</span>{" "}
           </div>
           <div className="headerSearchItem">
-            <button className="headerBtn">Search</button>
+            <button className="btn">Search</button>
           </div>
         </div>
       </div>

@@ -64,7 +64,7 @@
       text-align: justify;
       margin: 20px 0px;
     }
-    button {
+    .btn {
       background-color: rgba(40, 143, 233); /* Opacité réglée sur 0.5 (50%) */
 
       color: white;
@@ -96,10 +96,14 @@
             border: none;
             outline: none;
         }
-        .headerBtn{
-            font-weight: 500;
-        }
+       
       }
     }
   }
+}
+
+.date{
+  background-color: white;
+  position: absolute;
+ top: 0;
 }
