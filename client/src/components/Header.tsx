@@ -3,7 +3,7 @@ import FlightIcon from "@mui/icons-material/Flight";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import LocalTaxiIcon from "@mui/icons-material/LocalTaxi";
 
-import { DateRange,Range } from "react-date-range";
+import { DateRange } from "react-date-range";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import {format } from "date-fns"
@@ -56,10 +56,10 @@ const Header = () => {
           </div>
           <div className="headerSearchItem">
             <FlightIcon />
-            <span onClick={()=>set} >{`${format(date[0].startDate,"dd/MM/yyyy")} au ${format(date[0].endDate,"dd/MM/yyyy")}`}</span>
+            <span onClick={()=>setOpenDate(!openDate)} >{`${format(date[0].startDate,"dd/MM/yyyy")} au ${format(date[0].endDate,"dd/MM/yyyy")}`}</span>
            {!openDate && <DateRange
               editableDateInputs={true}
-              onChange={(item:Range) => setDate([item.selection as DateSeletion])}
+              onChange={(item) => setDate([item.selection as DateSeletion])}
               moveRangeOnFirstSelection={false}
               ranges={date} // Remarquez que je mets date entre crochets pour créer un tableau de date, car DateRange attend un tableau pour les plages de dates
               className="date"
