@@ -1,7 +1,8 @@
 
 
-export interface DateSeletion{
-    startDate:Date,
-    endDate:Date,
-    key:string
-}
+export interface DateSelection {
+    startDate: Date;
+    endDate: Date | null;
+    key: string;
+  }
+

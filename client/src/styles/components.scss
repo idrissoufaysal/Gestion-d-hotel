@@ -95,7 +95,10 @@
         input{
             border: none;
             outline: none;
-        }
+          }
+          span{
+            color:$gris-sombre ;
+          }
        
       }
     }
@@ -105,5 +108,5 @@
 .date{
   background-color: white;
   position: absolute;
- top: 0;
+  top: 50px;
 }

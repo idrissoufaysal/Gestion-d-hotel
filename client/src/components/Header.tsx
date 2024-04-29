@@ -2,23 +2,32 @@ import LocalHotelIcon from "@mui/icons-material/LocalHotel";
 import FlightIcon from "@mui/icons-material/Flight";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import LocalTaxiIcon from "@mui/icons-material/LocalTaxi";
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import BoyIcon from '@mui/icons-material/Boy';
 
 import { DateRange } from "react-date-range";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
-import {format } from "date-fns"
+
+import { format } from "date-fns";
 import { useState } from "react";
-import { DateSeletion } from "../utils/types";
-
-
+import { DateSelection } from "../utils/types";
 
 const Header = () => {
-  const [openDate,setOpenDate]=useState(false)
-  const [date, setDate] = useState<DateSeletion[]>([{
-    startDate: new Date(),
-    endDate: new Date(),
-    key: "seletion",
-  }]);
+  const [openDate, setOpenDate] = useState(false);
+  const [date, setDate] = useState<DateSelection[]>([
+    {
+      startDate: new Date(),
+      endDate: new Date(),
+      key: "selection",
+    },
+  ]);
+
+  const [options,setOptions]=useState({
+    adult:1,
+    childreen:0,
+    room:1
+  })
   return (
     <div className="header">
       <div className="headerContainer">
@@ -51,23 +60,28 @@ const Header = () => {
         <button className="btn">Sign in / Register</button>
         <div className="headerSearch">
           <div className="headerSearchItem">
-            <FlightIcon />
+            <LocalHotelIcon />
             <input type="text" placeholder="ou alons nous?" />
           </div>
           <div className="headerSearchItem">
-            <FlightIcon />
-            <span onClick={()=>setOpenDate(!openDate)} >{`${format(date[0].startDate,"dd/MM/yyyy")} au ${format(date[0].endDate,"dd/MM/yyyy")}`}</span>
-           {!openDate && <DateRange
-              editableDateInputs={true}
-              onChange={(item) => setDate([item.selection as DateSeletion])}
-              moveRangeOnFirstSelection={false}
-              ranges={date} // Remarquez que je mets date entre crochets pour créer un tableau de date, car DateRange attend un tableau pour les plages de dates
-              className="date"
-            />}
+            <CalendarMonthIcon />
+            <span onClick={() => setOpenDate(!openDate)}>{`${format(
+              date[0].startDate,
+              "dd/MM/yyyy"
+            )} au ${format(date[0].endDate!, "dd/MM/yyyy")}`}</span>
+            {openDate && (
+              <DateRange
+                editableDateInputs={true}
+                onChange={(item) => setDate([item.selection as DateSelection])}
+                moveRangeOnFirstSelection={false}
+                ranges={date} // Remarquez que je mets date entre crochets pour créer un tableau de date, car DateRange attend un tableau pour les plages de dates
+                className="date"
+              />a
+            )}
           </div>
           <div className="headerSearchItem">
-            <FlightIcon />
-            <span>2 adults 2 childreen 1 room</span>{" "}
+            <BoyIcon />
+            <span>{`${options.adult} adults ${options.childreen} childreen ${options.room} room`}</span>{" "}
           </div>
           <div className="headerSearchItem">
             <button className="btn">Search</button>
