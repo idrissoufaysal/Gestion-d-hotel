@@ -16,4 +16,5 @@ export interface DateSelection {
      image:string,
      title:string,
      title2:string
+     price?: number 
   }
