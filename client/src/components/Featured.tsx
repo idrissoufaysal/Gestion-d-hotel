@@ -9,18 +9,18 @@ export default function Feature() {
   const homes1: Home1[] = [
     {
       image: image,
-      title: "Titre de la maison 1",
-      title2: "Deuxième titre de la maison 1",
+      title: "Chateaux",
+      title2: "beaucoup d'argent",
     },
     {
       image:image2,
-      title: "Titre de la maison 2",
-      title2: "Deuxième titre de la maison 2",
+      title: "Villa",
+      title2: "Etre entrepreneur",
     },
     {
       image: image3,
-      title: "Titre de la maison 3",
-      title2: "Deuxième titre de la maison 3",
+      title: "Chambre",
+      title2: "soit un debout",
     },
    
   ];
