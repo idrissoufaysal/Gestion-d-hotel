@@ -75,6 +75,7 @@
       border-radius: 3px;
     }
     .headerSearch {
+      cursor: pointer;
       display: flex;
       height: 30px;
       border: 3px solid $jaune-moutarde;
@@ -109,4 +110,41 @@
   background-color: white;
   position: absolute;
   top: 50px;
+  z-index: 2;
+}
+
+.options{
+  position: absolute;
+  top: 50px;
+  background-color: white;
+  z-index: 2;
+  align-items:center;
+  .optionItem{
+    align-items: center;
+    padding: 05px 10px;
+    width: 200px;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+span{
+  color: black;
+}
+.actions{
+  display: flex;
+gap: 5px;
+align-items: center;
+}
+    button{
+      height: 25px;
+      width:25px;
+      border: 1px solid $couleur-principale;
+      color: $couleur-principale;
+      border-radius: 2px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+    button:disabled{
+      cursor:not-allowed
+    }
+  }
 }
