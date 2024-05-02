@@ -4,6 +4,7 @@ import { Home1 } from "../utils/types";
  import image2 from '../assets/images/chairs-2181947_640.jpg'
  import image3 from '../assets/images/kitchen-1336160_640.jpg'
  
+ 
 export default function Feature() {
   const homes1: Home1[] = [
     {
