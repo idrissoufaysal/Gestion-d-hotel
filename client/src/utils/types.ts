@@ -18,3 +18,15 @@ export interface DateSelection {
      title2:string
      price?: number 
   }
+  export interface Home2{
+     image:string,
+     title:string,
+     title2:string
+     price?: number 
+  }
+  export interface Home3{
+     image:string,
+     title:string,
+     title2:string
+     price?: number 
+  }
