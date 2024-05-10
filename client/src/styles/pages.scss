@@ -66,6 +66,15 @@
     .listSearch{
       flex:1;
       background-color:yellow;
+      padding: 10px;
+      border-radius: 10px;
+      position: sticky;
+      top: 10;
+      h1{
+         font-size: 20px;
+         color:$gris-sombre ;
+         margin-bottom: 10px;
+      }
     }
   }
 }

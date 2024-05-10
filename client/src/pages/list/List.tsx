@@ -9,8 +9,14 @@ export default function List() {
         <div className="listWrapper">
           <div className="listSearch">
           <h1>Search</h1>
+          <div className="lsItem">
+            <label htmlFor="">Destination</label>
+            <input type="text" />
           </div>
-          <div className="listResult"></div>
+          </div>
+          <div className="listResult">
+
+          </div>
         </div>
       </div>
      </div>
