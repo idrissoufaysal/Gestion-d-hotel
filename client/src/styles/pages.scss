@@ -112,10 +112,14 @@
       padding: 10px;
       color: white;
       border: none;
-
+      border-radius: 5px;
     }
     .listResult {
       flex: 3;
     }
   }
+}
+
+.lsOption{
+  padding: 10px;
 }
