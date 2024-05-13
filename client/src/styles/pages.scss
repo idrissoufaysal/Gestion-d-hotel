@@ -63,18 +63,59 @@
     max-width: 1024px;
     display: flex;
     gap: 20px;
-    .listSearch{
-      flex:1;
-      background-color:yellow;
+    .listSearch {
+      flex: 1;
+      background-color: $jaune-moutarde;
       padding: 10px;
       border-radius: 10px;
       position: sticky;
       top: 10;
-      h1{
-         font-size: 20px;
-         color:$gris-sombre ;
-         margin-bottom: 10px;
+      h1 {
+        font-size: 20px;
+        color: $gris-sombre;
+        margin-bottom: 10px;
       }
+      .lsItem {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        label {
+          font-size: 14px;
+        }
+        input {
+          height: 30px;
+          padding: 5px;
+          border: none;
+        }
+        .dateSpan {
+          height: 30px;
+          padding: 5px;
+          background-color: white;
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+        }
+        .lsOptionItem {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 10px;
+          font-size: 14px;
+          input{
+            width: 50px;
+          }
+        }
+      }
+    }
+    .btn{
+      background-color: $bleu_clair;
+      width: 100%;
+      padding: 10px;
+      color: white;
+      border: none;
+
+    }
+    .listResult {
+      flex: 3;
     }
   }
 }
