@@ -6,7 +6,7 @@ import Register from "./pages/register";
 import Home from "./pages/Home";
 import Login from "./pages/login";
 import List from "./pages/list/List";
-import Hotel from "./pages/hotel/Hotel";
+import Hotel from "./pages/Hotel";
 
 import './styles/components.scss'
 import './styles/pages.scss'

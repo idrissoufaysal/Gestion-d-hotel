@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useLocation } from "react-router-dom";
-import Navbar from "../../components/NavBar";
+import Navbar from "../components/NavBar";
 import { useState } from "react";
 import { format } from "date-fns";
 import { DateRange } from "react-date-range";
-import SearchItem from "../../components/SearchItem";
+import SearchItem from "../components/SearchItem";
 
 export default function List() {
   const location = useLocation();

@@ -69,7 +69,8 @@
       padding: 10px;
       border-radius: 10px;
       position: sticky;
-      top: 10;
+      top: 10px;
+      height: max-content;
       h1 {
         font-size: 20px;
         color: $gris-sombre;
@@ -100,13 +101,13 @@
           justify-content: space-between;
           margin-bottom: 10px;
           font-size: 14px;
-          input{
+          input {
             width: 50px;
           }
         }
       }
     }
-    .btn{
+    .btn {
       background-color: $bleu_clair;
       width: 100%;
       padding: 10px;
@@ -120,10 +121,10 @@
   }
 }
 
-.lsOption{
+.lsOption {
   padding: 10px;
 }
-.searchItem{
+.searchItem {
   border: 1px solid lightgrey;
   display: flex;
   padding: 5px;
@@ -131,68 +132,87 @@
   margin-bottom: 20px;
   justify-content: space-between;
   border-radius: 5px;
-  img{
-    height:200px;
-    width:200px;
+  img {
+    height: 200px;
+    width: 200px;
     object-fit: cover;
   }
-.siDesc{
-  flex: 2;
-  display: flex;
-  flex-direction: column;
-}  
-.siDetails{
-flex: 1;
-display: flex;
-flex-direction: column;
-justify-content: space-between;
-.siRating{
-  display: flex;justify-content: space-between;
-  span{
-    font-weight: 500;
+  .siDesc {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
   }
-  button{
-    background-color: $couleur-principale;
+  .siDetails {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .siRating {
+      display: flex;
+      justify-content: space-between;
+      span {
+        font-weight: 500;
+      }
+      button {
+        background-color: $couleur-principale;
+        color: white;
+        padding: 5px;
+        font-weight: 500;
+        border: none;
+      }
+    }
+  }
+  h1 {
+    font-size: 20px;
+    color: $couleur-principale;
+  }
+  .siDistance {
+    font-size: 13px;
+  }
+  .siTaxi0p {
+    font-size: 13px;
+    background-color: $vert-olive;
     color: white;
-    padding: 5px;
-    font-weight: 500;
-    border: none;
+    width: max-content;
+    padding: 3px;
+    border-radius: 5px;
   }
-}
-}
-h1{
-  font-size: 20px;
-  color: $couleur-principale;
-}
-.siDistance{
-  font-size: 13px;
-}
-.siTaxi0p{
-  font-size: 13px;
-  background-color: $vert-olive;
-  color: white;
-  width: max-content;
-  padding: 3px;
-  border-radius: 5px;
-  
-}
-.siSubtitle{
-  font-size: 13px;
-  font-weight: bold;
-}
+  .siSubtitle {
+    font-size: 13px;
+    font-weight: bold;
+  }
 
-.siFeatures{
-  font-size: 13px;
-}
-.siCancelop{
-  font-size: 13px;
-  font-weight: bold;
-  color: $vert-olive;
-}
-.siCancelOpSubtitle{
-  font-size: 13px;
-  color: $vert-olive;
-}
-
-
+  .siFeatures {
+    font-size: 13px;
+  }
+  .siCancelop {
+    font-size: 13px;
+    font-weight: bold;
+    color: $vert-olive;
+  }
+  .siCancelOpSubtitle {
+    font-size: 13px;
+    color: $vert-olive;
+  }
+  .siDetailTexts {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    text-align: right;
+    .siPrice{
+      font-size: 24px;
+    }
+    .siTaxiOp{
+      font-size: 13px;
+      color: gray;
+    }
+    button {
+      background-color: $couleur-principale;
+      padding:10px 5px;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  }
 }

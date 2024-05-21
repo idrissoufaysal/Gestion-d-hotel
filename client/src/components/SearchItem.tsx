@@ -25,7 +25,10 @@ export default function SearchItem() {
           <button>8.9</button>
         </div>
         <div className="siDetailTexts">
-          
+          <span className="siPrice">$123</span>
+          <span className="siTaxiOp">Include taxes and fees</span>
+          <button>See available</button>
+
         </div>
       </div>
     </div>
