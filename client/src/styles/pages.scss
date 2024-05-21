@@ -123,3 +123,48 @@
 .lsOption{
   padding: 10px;
 }
+.searchItem{
+  border: 1px solid lightgrey;
+  display: flex;
+  padding: 5px;
+  gap: 20px;
+  margin-bottom: 20px;
+  justify-content: space-between;
+  border-radius: 5px;
+  img{
+    height:200px;
+    width:200px;
+    object-fit: cover;
+  }
+.siDesc{
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+}  
+.siDetails{
+flex: 1;
+}
+h1{
+  font-size: 20px;
+  color: $couleur-principale;
+}
+.siDistance{
+  font-size: 13px;
+}
+.siTaxi0p{
+  font-size: 13px;
+  background-color: $vert-olive;
+  color: white;
+  width: max-content;
+  padding: 3px;
+  border-radius: 5px;
+  
+}
+.siSubtitle{
+  font-size: 13px;
+  font-weight: bold;
+}
+
+
+
+}
