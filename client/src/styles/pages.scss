@@ -199,20 +199,76 @@
     flex-direction: column;
     gap: 5px;
     text-align: right;
-    .siPrice{
+    .siPrice {
       font-size: 24px;
     }
-    .siTaxiOp{
+    .siTaxiOp {
       font-size: 13px;
       color: gray;
     }
     button {
       background-color: $couleur-principale;
-      padding:10px 5px;
+      padding: 10px 5px;
       color: white;
       border: none;
       border-radius: 5px;
       cursor: pointer;
+    }
+  }
+}
+
+//single hotel page
+.hotelContainer {
+  justify-content: center;
+  display: flex;
+  margin-top: 20px;
+  .hotelWrapper {
+    position: relative;
+    width: 100%;
+    max-width: 1024px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    h1 {
+      font-size: 24px;
+    }
+    button{
+position: absolute;
+top: 10;
+right: 0;
+background-color: $couleur-principale;
+padding: 10px 25px;
+color: white;
+border: none;
+border-radius: 1px;
+cursor: pointer;
+
+    }
+    .location {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 14px;
+    }
+    .hotelDistance {
+      color: $bleu_clair;
+    }
+    .hotelPrice {
+      color: $vert-olive;
+      font-weight: 500;
+    }
+    .hotelImages {
+      flex-wrap: wrap;
+      display: flex;
+      justify-content: space-between;
+      .hotelImgWrapper {
+        display: flex;
+        width: 33%;
+      }
+      img {
+        width: 100%;
+        object-fit: cover;
+      }
     }
   }
 }

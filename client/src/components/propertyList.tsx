@@ -2,7 +2,7 @@ import { Home1 } from "../utils/types";
 import image from "../assets/images/barn-216372_640.jpg";
 import image2 from "../assets/images/village-279013_640.jpg";
 import image3 from "../assets/images/living-room-2732939_640.jpg";
-import image4 from "../assets/images/téléchargement.jpg";
+import image4 from "../assets/images/living-room-2569325_640.jpg";
 import image6 from "../assets/images/interior-2685521_640.jpg";
 const PropertyList = () => {
   const homes2: Home1[] = [
