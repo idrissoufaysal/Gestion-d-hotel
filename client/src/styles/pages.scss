@@ -271,8 +271,16 @@
       }
     }
     .hotelDetails{
+      margin-bottom: 50px;
+
       .hotelDetailsTexts{
-        
+        h1{
+          font-size: 24px;
+          font-weight: bold;
+        }
+        p{
+text-align: justify;
+        }
       }
     }
   }
