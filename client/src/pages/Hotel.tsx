@@ -1,6 +1,11 @@
+import Footer from "../components/Footer";
+import MailList from "../components/MailList";
 import Navbar from "../components/NavBar";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import CloseIcon from "@mui/icons-material/Close";
+import { useState } from "react";
 const Hotel = () => {
   const photo = [
     {
@@ -23,13 +28,50 @@ const Hotel = () => {
     },
   ];
 
+  const [openImage, setOpenImage] = useState(false);
+  const [sliderIndex, setSliderIndex] = useState(0);
+  const handlOpen = (index: number) => {
+    setOpenImage(true);
+    setSliderIndex(index);
+  };
+
+  const handleSlider = (action: "s" | "r") => {
+    let newSlideNumber;
+    if (action == "s") {
+      newSlideNumber = sliderIndex == 5 ? 0 : sliderIndex + 1; //setSliderIndex(sliderIndex + 1);
+      setSliderIndex(newSlideNumber);
+    }
+    if (action == "r") {
+      newSlideNumber = sliderIndex==0?5 :sliderIndex-1
+
+      //setSliderIndex(sliderIndex -1);
+      setSliderIndex(newSlideNumber);
+    }
+  };
+
   return (
     <div>
       <Navbar />
 
       <div className="hotelContainer">
+        {openImage && (
+          <div className="slider">
+            <div className="sliderWrapper">
+              <CloseIcon className="c" onClick={() => setOpenImage(false)} />
+              <ArrowBackIosIcon
+                className="b"
+                onClick={() => handleSlider("r")}
+              />
+              <img src={photo[sliderIndex].src} alt="" />
+              <ArrowForwardIosIcon
+                className="b"
+                onClick={() => handleSlider("s")}
+              />
+            </div>
+          </div>
+        )}
         <div className="hotelWrapper">
-          <h1>Towwer Street Apartments</h1>
+          <h1>Tower Street Apartments</h1>
           <div className="location">
             <LocationOnIcon fontSize="small" elevation={80} />
             <span>paris rue 33 , a la rivera 2</span>
@@ -40,12 +82,11 @@ const Hotel = () => {
           <span className="hotelPrice">
             Book a stay over $114 at this property and get a free aiport taxi
           </span>
-          <button>Book now</button>
+          <button className="book1">Book now</button>
           <div className="hotelImages">
-            {photo.map((p,i) => (
+            {photo.map((p, i) => (
               <div key={i} className="hotelImgWrapper">
-                <img src={p.src} alt="" />
-                
+                <img src={p.src} onClick={() => handlOpen(i)} alt="" />
               </div>
             ))}
           </div>
@@ -53,14 +94,27 @@ const Hotel = () => {
             <div className="hotelDetailsTexts">
               <h1>Stay im the heart ok krakow</h1>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                 Alias, aut nemo! Corrupti officia reiciendis tenetur, optio 
-                 dolorum aut quaerat eum sequi recusandae consectetur, fu
-                git, rerum molestiae animi distinctio eligendi aliquid.
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias,
+                aut nemo! Corrupti officia reiciendis tenetur, optio dolorum aut
+                quaerat eum sequi recusandae consectetur, fu git, rerum
+                molestiae animi distinctio eligendi aliquid.
               </p>
+            </div>
+            <div className="hotelDetailsPrice">
+              <h1>Perfect for a 9-night stay</h1>
+              <span>
+                Located in the real heart of krakow, this property has an
+                excellent location score of 9.8
+              </span>
+              <h2>
+                <b>$945</b> (9 nights)
+              </h2>
+              <button>Reserve or Book Now !</button>
             </div>
           </div>
         </div>
+        <MailList />
+        <Footer />
       </div>
     </div>
   );
