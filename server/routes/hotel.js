@@ -4,12 +4,12 @@ const { route } = require('./auth')
 const  router=express.Router()
 
 //Afficher tous les hotel
-router.get('/',async(req,res)=>{
+router.get('/',async(req,res,next)=>{
 res.send('all hotel')
     try {
         
     } catch (error) {
-        
+        next(error)
     }
 }
 )
@@ -20,7 +20,7 @@ router.get('/:id',async(req,res)=>{
     try {
         
     } catch (error) {
-        
+        next(error)
     }
 }
 )
@@ -32,7 +32,7 @@ router.put('/',async(req,res)=>{
     try {
         
     } catch (error) {
-        
+        next(error)
     }
 }
 )
@@ -43,7 +43,7 @@ router.delete('/',async(req,res)=>{
     try {
         
     } catch (error) {
-        
+        next(error)
     }
 }
 )
