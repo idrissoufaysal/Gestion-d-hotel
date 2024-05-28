@@ -4,6 +4,7 @@ const roomRouter = require("./routes/room");
 const hotelRouter = require("./routes/hotel");
 const dotenv = require("dotenv");
 const {PrismaClient}=require('@prisma/client')
+const cookieParse=require("cookie-parse")
 
 const app = express();
 dotenv.config();
@@ -19,6 +20,7 @@ app.use((err, req, res, next) => {
   });
 });
 
+app.use(cookieParse())
 app.use(express.json());
 app.use("/auth", authRouter);
 app.use("/room", roomRouter);
