@@ -3,8 +3,7 @@ const authRouter = require("./routes/auth");
 const roomRouter = require("./routes/room");
 const hotelRouter = require("./routes/hotel");
 const dotenv = require("dotenv");
-const {PrismaClient}=require('@prisma/client')
-
+const { PrismaClient } = require("@prisma/client");
 
 const app = express();
 dotenv.config();
@@ -20,20 +19,59 @@ app.use((err, req, res, next) => {
   });
 });
 
-const cors=require('cors')
+const cors = require("cors");
 app.use(express.json());
 app.use("/auth", authRouter);
 app.use("/room", roomRouter);
 app.use("/hotel", hotelRouter);
 
-app.get("/", async(req, res) => {
+app.get("/", async (req, res) => {
   res.send("you are welcome");
-  const users=await  prisma.user.findMany()
-  res.json(users)
+  const users = await prisma.user.findMany();
+  res.json(users);
 });
 
 //Database connection
-const prisma=new PrismaClient()
- 
-const port=process.env.PORT  
+const prisma = new PrismaClient();
+
+const port = process.env.PORT;
 app.listen(port, () => console.log(`localhost://${port}/`));
+
+const Hotelschema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  type: {
+    type: String,
+    required: true,
+  },
+  city: {
+    type: String,
+    required: true,
+  },
+  address: {
+    type: String,
+    required: true,
+  },
+  distance: {
+    type: String,
+    required: true,
+  },
+  desc: {
+    type: String,
+    required: true,
+  },
+  photos: {
+    type: [String],
+    required: true,
+  },
+  rating: {
+    type: Number,
+    min: 0,
+    max: 5,
+  },
+  rooms:{
+    type:[String]
+  }
+});
