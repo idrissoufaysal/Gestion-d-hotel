@@ -36,7 +36,7 @@ router.get('/:id', async (req, res) => {
 )
 
 //mise a jour d'une hotel
-router.put('/:id', async (req, res) => {
+router.put('/:id', async (req, res,next) => {
     const hotelId = req.params.id
 
     try {
@@ -48,7 +48,7 @@ router.put('/:id', async (req, res) => {
 )
 
 //Supprimer une hotel
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', async (req, res,next) => {
     const hotelId = req.params.id
     try {
         const existingHotel=await prisma.hotel.delete({where:{id:hotelId}})

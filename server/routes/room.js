@@ -35,23 +35,23 @@ router.get('/:id',async(req,res,next)=>{
 )
 
 //mise a jour d'une room
-router.put('/:id',async(req,res)=>{
+router.put('/:id',async(req,res,next)=>{
     const roomId=req.params.id
     try {
         
     } catch (error) {
-        
+        next(error)
     }
 }
 )
 
 //Supprimer une room
-router.delete('/:id',async(req,res)=>{
+router.delete('/:id',async(req,res,next)=>{
     const roomId=req.params.id
     try {
         
     } catch (error) {
-        
+        next(error)
     }
 }
 )
