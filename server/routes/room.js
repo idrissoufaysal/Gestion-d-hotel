@@ -1,34 +1,42 @@
 const express=require('express')
-const { route } = require('./auth')
+const { PrismaClient } = require("@prisma/client");
 
-const  router=express.Router()
+const router = express.Router();
+const prisma = new PrismaClient();
+
 
 //Afficher tous les room
-router.get('/',async(req,res)=>{
-
+router.get('/',async(req,res,next)=>{
+ 
     try {
-        
+       const rooms= await prisma.room.findMany()
+       res.status(200).json(rooms)
+
     } catch (error) {
-        
+        next(error)
     }
 }
 )
 
 //Afficher une room
-router.get('/:id',async(req,res)=>{
-    
+router.get('/:id',async(req,res,next)=>{
+    const roomId=req.params.id
     try {
-        
+        const existingRoom=await prisma.room.findUnique({where:{id:roomId}})
+        if(!existingRoom){
+            res.status(404).json("room introuvable !!!")
+        }
+        res.status(200).json(existingRoom)
+
     } catch (error) {
-        
+        next(error)
     }
 }
 )
 
 //mise a jour d'une room
-
-router.put('/',async(req,res)=>{
-    
+router.put('/:id',async(req,res)=>{
+    const roomId=req.params.id
     try {
         
     } catch (error) {
@@ -38,8 +46,8 @@ router.put('/',async(req,res)=>{
 )
 
 //Supprimer une room
-router.delete('/',async(req,res)=>{
-    
+router.delete('/:id',async(req,res)=>{
+    const roomId=req.params.id
     try {
         
     } catch (error) {

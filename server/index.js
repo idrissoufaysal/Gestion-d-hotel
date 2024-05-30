@@ -8,7 +8,7 @@ const { PrismaClient } = require("@prisma/client");
 const app = express();
 dotenv.config();
 //Midlleware
-app.use((err, req, res, next) => {
+app.use((err, req, res, next) => {       
   const errorStatus = err.status || 500;
   const errorMessage = err.message || "il ya une erreur";
   return res.status(errorStatus).json({
@@ -24,7 +24,7 @@ app.use(express.json());
 app.use("/auth", authRouter);
 app.use("/room", roomRouter);
 app.use("/hotel", hotelRouter);
-
+nn
 app.get("/", async (req, res) => {
   res.send("you are welcome");
   const users = await prisma.user.findMany();

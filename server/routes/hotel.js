@@ -1,13 +1,19 @@
-const express=require('express')
-const { route } = require('./auth')
+const express = require('express')
+const { PrismaClient } = require("@prisma/client");
 
-const  router=express.Router()
+const router = express.Router();
+const prisma = new PrismaClient();
+
+
 
 //Afficher tous les hotel
-router.get('/',async(req,res,next)=>{
-res.send('all hotel')
+router.get('/', async (req, res, next) => {
+
+    res.send('all hotel')
     try {
-        
+        const hotels = prisma.hotel.findMany()
+        res.status(200).json(hotels)
+
     } catch (error) {
         next(error)
     }
@@ -15,10 +21,14 @@ res.send('all hotel')
 )
 
 //Afficher une hotel
-router.get('/:id',async(req,res)=>{
-    
+router.get('/:id', async (req, res) => {
+    const hotelId = req.params.id
     try {
-        
+        const existingHotel = await prisma.hotel.findUnique({ where: { id: hotelId } })
+        if (!existingHotel) {
+            res.status(404).json("hotel introuvable !!!")
+        }
+        res.status(200).json(existingHotel)
     } catch (error) {
         next(error)
     }
@@ -26,11 +36,11 @@ router.get('/:id',async(req,res)=>{
 )
 
 //mise a jour d'une hotel
+router.put('/:id', async (req, res) => {
+    const hotelId = req.params.id
 
-router.put('/',async(req,res)=>{
-    
     try {
-        
+
     } catch (error) {
         next(error)
     }
@@ -38,14 +48,18 @@ router.put('/',async(req,res)=>{
 )
 
 //Supprimer une hotel
-router.delete('/',async(req,res)=>{
-    
+router.delete('/:id', async (req, res) => {
+    const hotelId = req.params.id
     try {
-        
+        const existingHotel=await prisma.hotel.delete({where:{id:hotelId}})
+        if(!existingHotel){
+            res.status(404).json("hotel introuvable !!!")
+        }
+        res.status(200).json("hotel supprimer avec succes")
     } catch (error) {
         next(error)
     }
 }
 )
 
-module.exports=router
+module.exports = router

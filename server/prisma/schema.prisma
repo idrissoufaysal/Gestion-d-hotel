@@ -35,9 +35,7 @@ model Hotel {
   title String
   cheapesPrice Float 
   featured Boolean
-  images    Photo?[]
   rating    Float?   @default(0) 
-  rooms     String[]
 }
 
 model Room {
