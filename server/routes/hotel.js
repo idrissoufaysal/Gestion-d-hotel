@@ -52,6 +52,11 @@ router.put('/:id', async (req, res, next) => {
     const hotelId = req.params.id
 
     try {
+        const existingHotel = await prisma.hotel.findFirst({ where: { id: parseInt(hotelId) } })
+        if (!existingHotel) {
+            res.status(400).json("hotel introuvable !!!")
+        }
+
         await prisma.hotel.update({ where: { id: parseInt(hotelId) }, data: { name, desc, title, cheapesPrice, address, type, city, featured, rating, distance } })
             .then(response => { res.status(200).json('hotel mise a jour avec succes') })
     } catch (error) {
@@ -68,7 +73,7 @@ router.delete('/:id', async (req, res, next) => {
         if (!existingHotel) {
             res.status(404).json("hotel introuvable !!!")
         }
-        
+
         res.status(200).json("hotel supprimer avec succes")
     } catch (error) {
         next(error)
