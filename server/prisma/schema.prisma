@@ -31,10 +31,10 @@ model Hotel {
   city String
   address String
   distance String
-  desc String
-  title String
-  cheapesPrice Float 
-  featured Boolean
+  desc String?
+  title String?
+  cheapesPrice Float ?
+  featured Boolean?
   rating    Float?   @default(0) 
 }
 

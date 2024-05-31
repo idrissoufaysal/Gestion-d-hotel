@@ -9,9 +9,8 @@ const prisma = new PrismaClient();
 //Afficher tous les hotel
 router.get('/', async (req, res, next) => {
 
-    res.send('all hotel')
     try {
-        const hotels = prisma.hotel.findMany()
+        const hotels = await prisma.hotel.findMany()
         res.status(200).json(hotels)
 
     } catch (error) {
@@ -21,10 +20,10 @@ router.get('/', async (req, res, next) => {
 )
 
 //Afficher une hotel
-router.get('/:id', async (req, res) => {
+router.get('/:id', async (req, res, next) => {
     const hotelId = req.params.id
     try {
-        const existingHotel = await prisma.hotel.findUnique({ where: { id: hotelId } })
+        const existingHotel = await prisma.hotel.findFirst({ where: { id: parseInt(hotelId) } })
         if (!existingHotel) {
             res.status(404).json("hotel introuvable !!!")
         }
@@ -35,12 +34,26 @@ router.get('/:id', async (req, res) => {
 }
 )
 
+router.post('/', async (req, res, next) => {
+    const { name, desc, title, distance, address, city, type, rating, featured, cheapesPrice } = req.body
+    try {
+        const newHotel = await prisma.hotel.create({ data: { name, desc, title, cheapesPrice, address, type, city, featured, rating, distance } })
+        res.status(200).json(newHotel)
+    } catch (error) {
+        next(error)
+    }
+}
+)
+
+
 //mise a jour d'une hotel
-router.put('/:id', async (req, res,next) => {
+router.put('/:id', async (req, res, next) => {
+    const { name, desc, title, distance, address, city, type, rating, featured, cheapesPrice } = req.body
     const hotelId = req.params.id
 
     try {
-
+        await prisma.hotel.update({ where: { id: parseInt(hotelId) }, data: { name, desc, title, cheapesPrice, address, type, city, featured, rating, distance } })
+            .then(response => { res.status(200).json('hotel mise a jour avec succes') })
     } catch (error) {
         next(error)
     }
@@ -48,13 +61,14 @@ router.put('/:id', async (req, res,next) => {
 )
 
 //Supprimer une hotel
-router.delete('/:id', async (req, res,next) => {
+router.delete('/:id', async (req, res, next) => {
     const hotelId = req.params.id
     try {
-        const existingHotel=await prisma.hotel.delete({where:{id:hotelId}})
-        if(!existingHotel){
+        const existingHotel = await prisma.hotel.delete({ where: { id: parseInt(hotelId) } })
+        if (!existingHotel) {
             res.status(404).json("hotel introuvable !!!")
         }
+        
         res.status(200).json("hotel supprimer avec succes")
     } catch (error) {
         next(error)
