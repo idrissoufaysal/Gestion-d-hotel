@@ -15,8 +15,8 @@ datasource db {
 
 model User {
   id        Int      @id @default(autoincrement())
-  email     String   @unique 
-  username  String?  
+  email     String   @unique
+  username  String?
   password  String
   isAdmin   Boolean  @default(false)
   createdAt DateTime @default(now())
@@ -25,31 +25,48 @@ model User {
 }
 
 model Hotel {
-  id Int @id @default(autoincrement())
-  name String 
-  type String
-  city String
-  address String
-  distance String
-  desc String?
-  title String?
-  cheapesPrice Float ?
-  featured Boolean?
-  rating    Float?   @default(0) 
+  id           Int      @id @default(autoincrement())
+  name         String
+  type         String
+  city         String
+  address      String
+  distance     String
+  desc         String?
+  title        String?
+  cheapesPrice Float?
+  rooms        Room[]
+  featured     Boolean?
+  rating       Float?   @default(0)
 }
 
 model Room {
-  id Int @id @default(autoincrement())
-  title String
-  price Float
-  maxPeople Int
-  desc String
+  id          Int          @id @default(autoincrement())
+  title       String
+  price       Float
+  maxPeople   Int
+  hotelId     Int
+  hotel       Hotel        @relation(fields: [hotelId], references: [id])
+  roomNumbers RoomNumber[]
+}
+
+model RoomNumber {
+  id               Int               @id @default(autoincrement())
+  number           Int
+  unavailableDates UnavailableDate[]
+  roomId           Int
+  room             Room              @relation(fields: [roomId], references: [id])
+}
+
+model UnavailableDate {
+  id           Int        @id @default(autoincrement())
+  date         DateTime 
+  roomNumberId Int
+  roomNumber   RoomNumber @relation(fields: [roomNumberId], references: [id])
 }
 
 model Photo {
-  id Int @id @default(autoincrement())
-  url String 
-
+  id  Int    @id @default(autoincrement())
+  url String
 }
 
 enum Role {

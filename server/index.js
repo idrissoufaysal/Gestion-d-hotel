@@ -39,41 +39,16 @@ const prisma = new PrismaClient();
 const port = process.env.PORT ||5000;
 app.listen(port, () => console.log(`localhost://${port}/`));
 
-// const Hotelschema = new mongoose.Schema({
+// const roomModel = new mongoose.Schema({
 //   name: {
 //     type: String,
 //     required: true,
 //   },
-//   type: {
-//     type: String,
-//     required: true,
-//   },
-//   city: {
-//     type: String,
-//     required: true,
-//   },
-//   address: {
-//     type: String,
-//     required: true,
-//   },
-//   distance: {
-//     type: String,
-//     required: true,
-//   },
-//   desc: {
-//     type: String,
-//     required: true,
-//   },
-//   photos: {
-//     type: [String],
-//     required: true,
-//   },
-//   rating: {
-//     type: Number,
-//     min: 0,
-//     max: 5,
-//   },
+  
 //   rooms:{
 //     type:[String]
 //   }
-// });
+// ,
+// roomNumbers: [{ number: Number, unavailableDates: [{ type: Date }] }],
+
+//  });

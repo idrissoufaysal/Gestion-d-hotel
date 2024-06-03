@@ -40,7 +40,7 @@ router.get('/:id', async (req, res, next) => {
 
 
 //modifier un utilisateur
-router.put('/:id',verifyUser, async (req, res, next) => {
+router.put('/:id',verifyToken, async (req, res, next) => {
     const { username, email, password } = req.body;
 
     const userId = req.params.id

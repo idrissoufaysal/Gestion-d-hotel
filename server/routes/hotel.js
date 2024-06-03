@@ -10,7 +10,18 @@ const prisma = new PrismaClient();
 router.get('/', async (req, res, next) => {
 
     try {
-        const hotels = await prisma.hotel.findMany()
+        const hotels = await prisma.hotel.findMany({
+            include: {
+                rooms: {
+                    include: {
+                        roomNumbers: { 
+                           
+                        }
+                    }
+                }
+            }
+        }
+        )
         res.status(200).json(hotels)
 
     } catch (error) {
@@ -23,7 +34,17 @@ router.get('/', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
     const hotelId = req.params.id
     try {
-        const existingHotel = await prisma.hotel.findFirst({ where: { id: parseInt(hotelId) } })
+        const existingHotel = await prisma.hotel.findFirst({
+            where: { id: parseInt(hotelId) }, include: {
+                rooms: {
+                    include: {
+                        roomNumbers: {
+                            
+                        }
+                    }
+                }
+            }
+        })
         if (!existingHotel) {
             res.status(404).json("hotel introuvable !!!")
         }
