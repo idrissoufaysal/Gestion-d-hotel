@@ -11,18 +11,19 @@ export interface DateSelection {
     children: number;
     room: number;
   }
-
+  
   export interface Home1{
      image:string,
      title:string,
      title2:string
      price?: number 
   }
+
   export interface Home2{
      image:string,
      title:string,
      title2:string
      price?: number 
   }
-  
+
   

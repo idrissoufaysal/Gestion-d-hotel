@@ -42,6 +42,7 @@ model Hotel {
 model Room {
   id          Int          @id @default(autoincrement())
   title       String
+  desc        String
   price       Float
   maxPeople   Int
   hotelId     Int
@@ -59,13 +60,13 @@ model RoomNumber {
 
 model UnavailableDate {
   id           Int        @id @default(autoincrement())
-  date         DateTime 
+  date         DateTime
   roomNumberId Int
   roomNumber   RoomNumber @relation(fields: [roomNumberId], references: [id])
 }
 
 model Photo {
-  id  Int    @id @default(autoincrement())
+  id  Int    @id @default(autoincrement()) 
   url String
 }
 
