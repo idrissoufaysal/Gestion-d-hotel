@@ -2,6 +2,7 @@ const express = require("express");
 const authRouter = require("./routes/auth");
 const roomRouter = require("./routes/room");
 const hotelRouter = require("./routes/hotel");
+const userRouter = require("./routes/user");
 const dotenv = require("dotenv");
 const { PrismaClient } = require("@prisma/client");
 
@@ -24,6 +25,7 @@ app.use(express.json());
 app.use("/auth", authRouter);
 app.use("/room", roomRouter);
 app.use("/hotel", hotelRouter);
+app.use("/user", userRouter);
 
 app.get("/", async (req, res) => {
   res.send("you are welcome");
