@@ -54,7 +54,7 @@ router.get('/:id', async (req, res, next) => {
 
 //Ajouter une chambre dans une hotels
 router.post('/:id', async (req, res, next) => {
-    const hotelId = req.params.id
+    const hotelId =parseInt(req.params.id)
     const { title, price, maxPeople } = req.body
 
     try {
