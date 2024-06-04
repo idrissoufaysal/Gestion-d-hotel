@@ -15,7 +15,7 @@ const verifyToken = (req, res, next) => {
 }
 
 const verifyUser = (req, res, next) => {
-    verifyToken(req, res, () => {
+    verifyToken(req, res,next, () => {
         if (req.user.id === req.params.id || req.user.isAdmin) {
             next()
         } else {
@@ -24,6 +24,13 @@ const verifyUser = (req, res, next) => {
     })
 }
 
+const verifyAdmin=(req,res,next)=>{
+        verifyToken(req,res,next,()=>{
+            if(req.user.id){
+                
+            }
+        })
+    }
 
 const authenticateUser = async (req, res, next) => {
     console.log('Middleware: authenticateUser');
