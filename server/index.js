@@ -22,6 +22,7 @@ app.use((err, req, res, next) => {
 
 const cors = require("cors");
 app.use(express.json());
+app.use(cors())
 app.use("/auth", authRouter);
 app.use("/room", roomRouter);
 app.use("/hotel", hotelRouter);

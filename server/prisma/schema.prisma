@@ -63,6 +63,7 @@ model UnavailableDate {
   date         DateTime
   roomNumberId Int
   roomNumber   RoomNumber @relation(fields: [roomNumberId], references: [id])
+  
 }
 
 model Photo {

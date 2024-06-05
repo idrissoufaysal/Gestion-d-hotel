@@ -5,8 +5,13 @@ import Header from "../components/Header";
 import MailList from "../components/MailList";
 import Navbar from "../components/NavBar";
 import PropertyList from "../components/propertyList";
+import useFetch from "../hooks/useFetch";
 
 const Home = () => {
+  const { data, error, loading } = useFetch("/hotel")
+  console.log("hotel??? "+data);
+  
+  
   return (
     <div>
       <Navbar />
@@ -22,8 +27,8 @@ const Home = () => {
           <FeaturedProperty />
           <FeaturedProperty />
         </div>
-        <MailList/>
-        <Footer/>
+        <MailList />
+        <Footer />
       </div>
     </div>
   );
