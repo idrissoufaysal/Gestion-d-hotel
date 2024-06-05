@@ -12,9 +12,7 @@ router.get('/', async (req, res, next) => {
         const rooms = await prisma.room.findMany({
             include: {
                 roomNumbers: {
-                    include: {
-                        unavailableDates
-                    }
+
                 }
             }
         })
@@ -41,7 +39,7 @@ router.get('/:id', async (req, res, next) => {
             }
         })
         if (!existingRoom) {
-            res.status(404).json("Room introuvable !!!")
+          return  res.status(404).json("Room introuvable !!!")
         }
 
         res.status(200).json(existingRoom)
@@ -54,17 +52,30 @@ router.get('/:id', async (req, res, next) => {
 
 //Ajouter une chambre dans une hotels
 router.post('/:id', async (req, res, next) => {
-    const hotelId =parseInt(req.params.id)
-    const { title, price, maxPeople } = req.body
+    const hotelId = parseInt(req.params.id)
+    const { title, price, maxPeople, desc, roomNumbers } = req.body
 
     try {
+        //Creation d'une room avec les numeros de chambre
         const newRoom = await prisma.room.create({
             data: {
-                title, price, maxPeople, hotelId
+                title, price, maxPeople, desc, hotelId, roomNumbers: {
+                    create: roomNumbers?.map(roomNumber => ({
+                        number: roomNumber.number,
+                        unavailableDates: {
+                            create: roomNumber?.unavailableDates?.map(date => ({
+                                date: new Date(date),
+                            })),
+                        },
+                    })),
+                },
+
             },
+
+
         })
 
-        res.status(200).json(newRoom)
+        res.status(200).json("Room ajouter avec succes")
 
     } catch (error) {
         next(error)
@@ -75,13 +86,47 @@ router.post('/:id', async (req, res, next) => {
 //mise a jour d'une room
 router.put('/:id', async (req, res, next) => {
     const roomId = req.params.id
-    const { title, price, maxPeople, desc } = req.body
+    const { title, price, maxPeople, desc, roomNumbers, unavailableDates, number, date } = req.body
+
     try {
+        //verifier que le room existe
         const existingRoom = await prisma.room.findFirst({ where: { id: parseInt(roomId) } })
         if (!existingRoom) {
-            res.status(404).json("Room introuvable !!!")
+          return  res.status(404).json("Room introuvable !!!")
         }
-        await prisma.room.update({ where: { id: existingRoom.id }, data: { title, price, maxPeople, desc } })
+        await prisma.$transaction(async (prisma) => {
+            // Supprimer les anciens numéros de salle
+            await prisma.roomNumber.deleteMany({
+                where: { roomId: parseInt(roomId) },
+            });
+
+            //Mise a jour de la room
+            const updateRoom = await prisma.room.update({
+                where: { id: existingRoom.id }, data: {
+                    title, price, maxPeople, desc,
+                    roomNumbers: {
+                        create: roomNumbers?.map(roomNumber => ({
+                            number: roomNumber.number,
+                            unavailableDates: {
+                                create: unavailableDates?.map(date => ({
+                                    date: new Date(date)
+                                }))
+
+                            }
+                        }))
+                    }
+                }
+            })
+            res.status(200).json(`la room ${updateRoom.title} a ete mise a jour avec succes`)
+        })
+        // //Mise a jour des room number
+        // const updateRoomNumber = await prisma.roomNumber.update({
+        //     where: { roomId: updateRoom.id },
+        //     data: { number }
+        // })
+
+        //Mise a jour des dates
+        // await prisma.unavailableDate.update({ where: { roomNumberId: updateRoomNumber.id }, data: { date } })
     } catch (error) {
         next(error)
     }
@@ -90,16 +135,38 @@ router.put('/:id', async (req, res, next) => {
 
 //Supprimer une room
 router.delete('/:id', async (req, res, next) => {
-    const roomId = req.params.id
+    const roomId = parseInt(req.params.id)
     try {
-        const existingRoom = await prisma.room.findUnique({ where: { id: parseInt(roomId) } })
+        const existingRoom = await prisma.room.findUnique({ where: { id: roomId } })
         if (!existingRoom) {
-            res.status(404).json("room introuvable !!!")
+           return res.status(404).json("room introuvable !!!")
         }
-        await prisma.room.delete({ where: { id: existingRoom.id } })
-            .then(response => {
-                res.status(200).json("room deleted successfully")
+
+        await prisma.$transaction(async (prisma) => {
+
+            // Suppression des dates non disponibles des numéros de salle
+            await prisma.unavailableDate.deleteMany({
+                where: {
+                    roomNumber: {
+                        roomId: roomId,
+                    },
+                },
+            });
+
+            //Supprimer les numero des salles
+            await prisma.roomNumber.deleteMany({
+                where: { roomId: existingRoom.id }
             })
+
+            //Supprimer la salle 
+            await prisma.room.delete({
+                where: {
+                    id: existingRoom.id
+                }
+            })
+
+        })
+        res.status(200).json(`la salle ${existingRoom.title} a ete supprimer avec succes`)
     } catch (error) {
         next(error)
     }
