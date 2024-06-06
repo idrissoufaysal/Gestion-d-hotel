@@ -14,8 +14,8 @@ router.get('/', async (req, res, next) => {
             include: {
                 rooms: {
                     include: {
-                        roomNumbers: { 
-                           
+                        roomNumbers: {
+
                         }
                     }
                 }
@@ -30,6 +30,47 @@ router.get('/', async (req, res, next) => {
 }
 )
 
+//afficher les hotel compter par ville
+router.get('/countByCity', async (req, res, next) => {
+    const cities = req.query.cities.split(',')
+    console.log(cities);
+
+    try {
+        const liste = await Promise.all(cities.map(async (city) => {
+            const count = await prisma.hotel.count({ where: { city } })
+            return count
+        }))
+        res.status(200).json(liste)
+    } catch (error) {
+        next(error)
+    }
+
+})
+
+//Afficher les hotel par type
+router.get('/countByType', async (req, res, next) => {
+
+    try {
+        const hotelCount = await prisma.hotel.count({ where: { type: "hotel" } })
+        const villaCount = await prisma.hotel.count({ where: { type: "villa" } })
+        const appartementCount = await prisma.hotel.count({ where: { type: "appartement" } })
+        const studioCount = await prisma.hotel.count({ where: { type: "studio" } })
+        const chateauxCount = await prisma.hotel.count({ where: { type: "chateaux" } })
+        
+        res.status(200).json([
+            { type: "chateaux", count: chateauxCount },
+            { type: "hotel", count: hotelCount },
+            { type: "villa", count: villaCount },
+            { type: "appartement", count: appartementCount },
+            { type: "studio", count: studioCount },
+        ])
+        
+    } catch (error) {
+        next(error)
+    }
+
+})
+
 //Afficher une hotel
 router.get('/:id', async (req, res, next) => {
     const hotelId = req.params.id
@@ -39,7 +80,7 @@ router.get('/:id', async (req, res, next) => {
                 rooms: {
                     include: {
                         roomNumbers: {
-                            
+
                         }
                     }
                 }

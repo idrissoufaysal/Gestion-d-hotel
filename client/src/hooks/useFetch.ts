@@ -11,9 +11,12 @@ const useFetch = (url: string) => {
             setLoading(true)
             try {
                 const res = await axios.get(`http://localhost:8000${url}`)
+                console.log(res);
                 setData(res.data)
-            } catch (error: unknown) {
-                setError(error)
+            } catch (error) {
+                if (error instanceof Error) {
+                    setError(error.message)
+                }
             }
             setLoading(false)
         }
@@ -26,7 +29,9 @@ const useFetch = (url: string) => {
             const res = await axios.get(`http://localhost:8000${url}`);
             setData(res.data);
         } catch (error) {
-            setLoading(false)
+            if (error instanceof Error) {
+                setError(error.message)
+            }
         }
     }
 

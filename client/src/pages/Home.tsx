@@ -9,8 +9,7 @@ import useFetch from "../hooks/useFetch";
 
 const Home = () => {
 
-  const { data, error, loading } = useFetch("/hotel")
-  console.log("hotel??? " + data);
+  
 
   return (
     <div>
