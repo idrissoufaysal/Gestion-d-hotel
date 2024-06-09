@@ -13,6 +13,8 @@ const useFetch = (url: string) => {
                 const res = await axios.get(`http://localhost:8000${url}`)
                 console.log(res);
                 setData(res.data)
+                console.log(res.data)
+
             } catch (error) {
                 if (error instanceof Error) {
                     setError(error.message)

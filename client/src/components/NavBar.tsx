@@ -4,14 +4,18 @@ function Navbar() {
   return (
     <div className="navbar">
       <div className="navContainer" >
-       <Link to='/'>
-       <span>B13_Hotels</span>
-       </Link>
+        <Link to='/'>
+          <span>B13_Hotels</span>
+        </Link>
 
-       <div className="button">
-           <button className="navButton">Login</button>
-           <button className="navButton">Register</button>
-       </div>
+        <div className="button">
+          <Link to={'/login'}>
+            <button className="navButton">Login</button>
+          </Link>
+          <Link to={'/register'}>
+            <button className="navButton">Register</button>
+          </Link>
+        </div>
       </div>
     </div>
   )

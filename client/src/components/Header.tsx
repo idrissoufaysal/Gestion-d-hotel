@@ -32,7 +32,7 @@ const Header = () => {
     room: 1,
   });
 
-  const navigate=useNavigate()
+  const navigate = useNavigate()
 
   const handlChange = (name: keyof Options, operation: "i" | "d") => {
     setOptions((prev) => {
@@ -44,8 +44,8 @@ const Header = () => {
     });
   };
 
-  const handleSearch=()=>{
-    navigate('/hotels',{state:{destination,date,options}})
+  const handleSearch = () => {
+    navigate('/hotels', { state: { destination, date, options } })
   }
 
   return (
@@ -81,7 +81,7 @@ const Header = () => {
         <div className="headerSearch">
           <div className="headerSearchItem">
             <LocalHotelIcon />
-            <input type="text" placeholder="ou alons nous?" onChange={e=>(setDestination(e.target.value))}/>
+            <input type="text" placeholder="ou alons nous?" onChange={e => (setDestination(e.target.value))} />
           </div>
           <div className="headerSearchItem">
             <CalendarMonthIcon />
@@ -101,7 +101,7 @@ const Header = () => {
           </div>
           <div className="headerSearchItem">
             <BoyIcon />
-            <span onClick={()=>setOpenOptions(!openOptions)}>{`${options.adult} adults ${options.children} children ${options.room} room`}</span>
+            <span onClick={() => setOpenOptions(!openOptions)}>{`${options.adult} adults ${options.children} children ${options.room} room`}</span>
             {openOptions && <div className="options">
               <div className="optionItem">
                 <span className="optionText">Adult</span>
@@ -148,7 +148,7 @@ const Header = () => {
           </div>
           <div className="headerSearchItem">
             <button className="btn"
-            onClick={handleSearch}
+              onClick={handleSearch}
             >Search</button>
           </div>
         </div>
