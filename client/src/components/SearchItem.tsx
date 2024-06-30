@@ -1,18 +1,27 @@
+import { Link, useLocation } from "react-router-dom";
 import img from "../assets/images/interior-2685521_640.jpg";
+import { Property } from "../utils/types";
 
-export default function SearchItem() {
+interface SearchItemProps {
+  item: Property;
+}
+
+export default function SearchItem({ item }: SearchItemProps) {
+  const location = useLocation()
+  console.log(location);
+
   return (
     <div className="searchItem">
       <img src={img} alt="" />
       <div className="siDesc">
-        <h1 className="siTitle">Tower Street Apartments</h1>
-        <span className="siDistance">500m from center</span>
+        <h1 className="siTitle">{item.name}</h1>
+        <span className="siDistance">{item.distance} from center</span>
         <span className="siTaxi0p">Free airport taxi</span>
         <span className="siSubtitle">
           Studio Apartment with Air conditioning
         </span>
         <span className="siFeatures">
-          Entire studio 1 bathroom 21m² 1 full bed
+          {item.desc}
         </span>
         <span className="siCancelop">Free cancellation </span>
         <span className="siCancelOpSubtitle">
@@ -20,14 +29,16 @@ export default function SearchItem() {
         </span>
       </div>
       <div className="siDetails">
-        <div className="siRating">
+        {item.rating && <div className="siRating">
           <span>Exelent</span>
-          <button>8.9</button>
-        </div>
+          <button>{item.rating}</button>
+        </div>}
         <div className="siDetailTexts">
-          <span className="siPrice">$123</span>
+          <span className="siPrice">${item.cheapesPrice}</span>
           <span className="siTaxiOp">Include taxes and fees</span>
-          <button>See available</button>
+          <Link to={`/hotels/${item.id}`}>
+            <button>See available</button>
+          </Link>
 
         </div>
       </div>

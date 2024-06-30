@@ -5,6 +5,8 @@ import { useState } from "react";
 import { format } from "date-fns";
 import { DateRange } from "react-date-range";
 import SearchItem from "../components/SearchItem";
+import useFetch from "../hooks/useFetch";
+import { Property } from "../utils/types";
 
 export default function List() {
   const location = useLocation();
@@ -14,6 +16,19 @@ export default function List() {
   const [destination, setDestination] = useState(location.state.destination);
   const [options, setoptions] = useState(location.state.options);
   const [date, setDate] = useState(location.state.date);
+  const [minPrice, setMin] = useState<number |undefined>(undefined);
+  const [maxPrice, setMax] = useState<number |undefined>(undefined);
+  const { data, loading ,reFetch} = useFetch<Property[]>(`/hotel?city=${destination}&min=${minPrice || 0}&max=${maxPrice || 999}`)
+
+  const handleMinChange = (e: React.MouseEventHandler<HTMLInputElement> ) => {
+    const value = e.target.value;
+    setMin(value ? parseInt(value) : undefined);
+  };
+
+  const handleMaxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setMax(value ? parseInt(value) : undefined);
+  };
 
   return (
     <div>
@@ -52,7 +67,7 @@ export default function List() {
                     <span>
                       Min price <small>per night</small>{" "}
                     </span>
-                    <input type="number" />
+                    <input type="number" onClick={handleMinChange}/>
                   </div>
                   <div className="lsOptionItem">
                     <span>
@@ -81,11 +96,16 @@ export default function List() {
               </div>
             </div>
             <div className="listResult">
-              <SearchItem />
-              <SearchItem />
-              <SearchItem />
-              <SearchItem />
-              <SearchItem />
+              {
+                loading ? "Loading..." : <>
+                  {
+                    data?.map(item => (
+                      <SearchItem item={item} key={item.id} />
+
+                    ))
+                  }
+                </>
+              }
             </div>
           </div>
         </div>

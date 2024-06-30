@@ -8,27 +8,40 @@ const prisma = new PrismaClient();
 
 //Afficher tous les hotel
 router.get('/', async (req, res, next) => {
-
     try {
+        // Extraire les paramètres de requête
+        const { min, max, limit, featured, ...others } = req.query;
+
+        // Requête Prisma avec les filtres et la limite
         const hotels = await prisma.hotel.findMany({
+            where: {
+                // Appliquer les autres filtres
+                ...others,
+                ...(featured && { featured: featured === "true" }),                // Appliquer les filtres de prix
+                cheapesPrice: {
+                    gte: parseInt(min) || 1,
+                    lte: parseInt(max) || 999,
+                },
+
+            },
             include: {
                 rooms: {
                     include: {
-                        roomNumbers: {
-
-                        }
+                        roomNumbers: {}
                     }
                 }
-            }
-        }
-        )
-        res.status(200).json(hotels)
+            },
+            // Limiter le nombre de résultats
+            take: limit ? parseInt(limit) : undefined,
+        });
 
+        res.status(200).json(hotels);
     } catch (error) {
-        next(error)
+        next(error);
     }
-}
-)
+});
+
+
 
 //afficher les hotel compter par ville
 router.get('/countByCity', async (req, res, next) => {
@@ -56,7 +69,7 @@ router.get('/countByType', async (req, res, next) => {
         const appartementCount = await prisma.hotel.count({ where: { type: "appartement" } })
         const studioCount = await prisma.hotel.count({ where: { type: "studio" } })
         const chateauxCount = await prisma.hotel.count({ where: { type: "chateaux" } })
-        
+
         res.status(200).json([
             { type: "chateaux", count: chateauxCount },
             { type: "hotel", count: hotelCount },
@@ -64,7 +77,7 @@ router.get('/countByType', async (req, res, next) => {
             { type: "appartement", count: appartementCount },
             { type: "studio", count: studioCount },
         ])
-        
+
     } catch (error) {
         next(error)
     }

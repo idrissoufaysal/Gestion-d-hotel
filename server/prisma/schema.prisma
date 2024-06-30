@@ -36,7 +36,7 @@ model Hotel {
   cheapesPrice Float?
   rooms        Room[]
   featured     Boolean?
-  rating       Float?   @default(0)
+  rating       Float?   @default(0.1)
 }
 
 model Room {

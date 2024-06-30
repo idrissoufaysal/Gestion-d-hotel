@@ -158,6 +158,9 @@
     overflow: hidden;
     cursor: pointer;
     border-radius: 10px;
+    .pListTitle{
+      text-transform: capitalize;
+    }
     img {
       width: 100%;
       height: 150px;

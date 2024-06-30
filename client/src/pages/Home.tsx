@@ -5,11 +5,8 @@ import Header from "../components/Header";
 import MailList from "../components/MailList";
 import Navbar from "../components/NavBar";
 import PropertyList from "../components/propertyList";
-import useFetch from "../hooks/useFetch";
 
 const Home = () => {
-
-  
 
   return (
     <div>
@@ -22,9 +19,7 @@ const Home = () => {
         <h1 className="title">Home guest Love</h1>
         <div className="items">
           <FeaturedProperty />
-          <FeaturedProperty />
-          <FeaturedProperty />
-          <FeaturedProperty />
+
         </div>
         <MailList />
         <Footer />
