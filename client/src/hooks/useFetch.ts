@@ -14,6 +14,7 @@ const useFetch = <T,>(url: string) => {
                 const res = await axios.get(`http://localhost:8000${url}`)
                 setData(res.data)
                 console.log(res.data)
+                //setLoading(false)
 
             } catch (error) {
                 if (error instanceof Error) {
@@ -30,6 +31,7 @@ const useFetch = <T,>(url: string) => {
         try {
             const res = await axios.get(`http://localhost:8000${url}`);
             setData(res.data);
+            setLoading(false)
         } catch (error) {
             if (error instanceof Error) {
                 setError(error.message)

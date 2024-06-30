@@ -16,19 +16,37 @@ export default function List() {
   const [destination, setDestination] = useState(location.state.destination);
   const [options, setoptions] = useState(location.state.options);
   const [date, setDate] = useState(location.state.date);
-  const [minPrice, setMin] = useState<number |undefined>(undefined);
-  const [maxPrice, setMax] = useState<number |undefined>(undefined);
-  const { data, loading ,reFetch} = useFetch<Property[]>(`/hotel?city=${destination}&min=${minPrice || 0}&max=${maxPrice || 999}`)
+  const [min,setMin]=useState()
+  const [max,setMax]=useState()
+  const [price, setPrice] = useState(
+    {
+      minPrice: undefined,
+      maxPrice: undefined
+    }
 
-  const handleMinChange = (e: React.MouseEventHandler<HTMLInputElement> ) => {
-    const value = e.target.value;
-    setMin(value ? parseInt(value) : undefined);
-  };
+  );
 
-  const handleMaxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setMax(value ? parseInt(value) : undefined);
-  };
+
+  const { data, loading, reFetch } = useFetch<Property[]>(`/hotel?city=${destination}&min=${min || 0}&max=${max || 999}`)
+
+  console.log(destination);
+
+  const handlChange = (e: { target: { name: string, value: string } }) => {
+    setPrice((prev) => (
+      { ...prev, [e.target.name]: e.target.value }
+    ))
+  }
+  const handleMinChange=(e:React.ChangeEventHandler<HTMLInputElement>)=>{
+    setMin(e.target.value)
+  }
+
+  const handleClick = () => {
+    console.log(min);
+    console.log(max);
+    
+    reFetch()
+  }
+
 
   return (
     <div>
@@ -40,7 +58,7 @@ export default function List() {
               <h1>Search</h1>
               <div className="lsItem">
                 <label htmlFor="">Destination</label>
-                <input type="text" placeholder={destination} />
+                <input type="text" placeholder={destination} onChange={e => setDestination(e.target.value)} />
               </div>
               <div className="lsItem">
                 <label htmlFor="">Check-in Date</label>
@@ -67,13 +85,13 @@ export default function List() {
                     <span>
                       Min price <small>per night</small>{" "}
                     </span>
-                    <input type="number" onClick={handleMinChange}/>
+                    <input type="number" onChange={e=>setMin(e.target.value)} />
                   </div>
                   <div className="lsOptionItem">
                     <span>
                       Max price <small>per night</small>{" "}
                     </span>
-                    <input type="number" placeholder={options.price} />
+                    <input type="number" placeholder={options.price} onChange={e=>setMax(e.target.value)} />
                   </div>
                   <div className="lsOptionItem">
                     <span>Adult</span>
@@ -92,7 +110,7 @@ export default function List() {
                     <input type="number" min={1} placeholder={options.room} />
                   </div>
                 </div>
-                <button className="btn">Search</button>
+                <button className="btn" onClick={handleClick}>Search</button>
               </div>
             </div>
             <div className="listResult">
