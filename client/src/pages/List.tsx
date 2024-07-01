@@ -36,14 +36,11 @@ export default function List() {
       { ...prev, [e.target.name]: e.target.value }
     ))
   }
-  const handleMinChange=(e:React.ChangeEventHandler<HTMLInputElement>)=>{
-    setMin(e.target.value)
-  }
+
 
   const handleClick = () => {
     console.log(min);
     console.log(max);
-    
     reFetch()
   }
 

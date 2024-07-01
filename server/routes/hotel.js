@@ -84,7 +84,7 @@ router.get('/countByType', async (req, res, next) => {
 
 })
 
-//Afficher une hotel
+//Afficher une hotel specifique
 router.get('/:id', async (req, res, next) => {
     const hotelId = req.params.id
     try {
@@ -93,7 +93,6 @@ router.get('/:id', async (req, res, next) => {
                 rooms: {
                     include: {
                         roomNumbers: {
-
                         }
                     }
                 }
@@ -108,6 +107,7 @@ router.get('/:id', async (req, res, next) => {
     }
 }
 )
+
 
 router.post('/', async (req, res, next) => {
     const { name, desc, title, distance, address, city, type, rating, featured, cheapesPrice } = req.body
@@ -140,7 +140,7 @@ router.put('/:id', async (req, res, next) => {
 }
 )
 
-//Supprimer une hotel
+//Supprimer une hotel 
 router.delete('/:id', async (req, res, next) => {
     const hotelId = req.params.id
     try {
@@ -148,7 +148,6 @@ router.delete('/:id', async (req, res, next) => {
         if (!existingHotel) {
             res.status(404).json("hotel introuvable !!!")
         }
-
         res.status(200).json("hotel supprimer avec succes")
     } catch (error) {
         next(error)
