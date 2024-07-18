@@ -5,8 +5,7 @@ import useFetch from "../hooks/useFetch";
 
 export default function Feature() {
   const { data, loading } = useFetch<number[]>("/hotel/countByCity?cities=lome,kara,londre");
-
-  console.log(data);
+  //console.log(data);
 
   return (
     <div className="featured">
@@ -19,21 +18,21 @@ export default function Feature() {
               <img src={image} alt="" />
               <div className="featuredTitles">
                 <h1>Lome</h1>
-                <h2>({data[0]})</h2> {/* Index 0 for Lome */}
+                <h2>({data[0]})</h2> 
               </div>
             </div>
             <div className="featuredItem">
               <img src={image3} alt="" />
               <div className="featuredTitles">
                 <h1>Kara</h1>
-                <h2>({data[1]})</h2> {/* Index 1 for Kara */}
+                <h2>({data[1]})</h2>
               </div>
             </div>
             <div className="featuredItem">
               <img src={image2} alt="" />
               <div className="featuredTitles">
-                <h1>Dapaong</h1> {/* Changed from Londre to Dapaong */}
-                <h2>({data[2]})</h2> {/* Index 2 for Dapaong */}
+                <h1>Dapaong</h1>
+                <h2>({data[2]})</h2> 
               </div>
             </div>
           </>

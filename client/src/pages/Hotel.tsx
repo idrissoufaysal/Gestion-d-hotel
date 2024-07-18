@@ -9,6 +9,8 @@ import { useState } from "react";
 import useFetch from "../hooks/useFetch";
 import { Property } from "../utils/types";
 import { useLocation } from "react-router-dom";
+import { dayDifferance } from "../utils/function";
+import { useSearchStore } from "../states/store";
 const Hotel = () => {
   const photo = [
     {
@@ -36,6 +38,7 @@ const Hotel = () => {
   const hotelId = location.pathname.split("/")[2]
   // console.log(hotelId);
 
+  const {dates,options}=useSearchStore()
   const { data,loading } = useFetch<Property>(`/hotel/${parseInt(hotelId)}`)
 
   const [openImage, setOpenImage] = useState(false);
@@ -59,6 +62,7 @@ const Hotel = () => {
     }
   };
 
+const days=dayDifferance(dates[0].endDate,dates[0].startDate)
   return (
     <div>
       <Navbar />
@@ -110,19 +114,18 @@ const Hotel = () => {
                   </p>
                 </div>
                 <div className="hotelDetailsPrice">
-                  <h1>Perfect for a 9-night stay</h1>
+                  <h1>Perfect for a {days}-night stay</h1>
                   <span>
                     Located in the real heart of krakow, this property has an
                     excellent location score of 9.8
                   </span>
                   <h2>
-                    <b>$945</b> (9 nights)
+                    <b>${options.room &&  days*options.room}</b> ({days} nights)
                   </h2>
                   <button>Reserve or Book Now !</button>
                 </div>
               </div>
             </div>
-
             <MailList />
             <Footer />
           </div>)

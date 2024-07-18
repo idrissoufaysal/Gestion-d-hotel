@@ -12,7 +12,7 @@ const useFetch = <T,>(url: string) => {
             setLoading(true)
             try {
                 const res = await axios.get(`http://localhost:8000${url}`)
-                setData(res.data)
+                setData(res.data as T)
                 console.log(res.data)
                 //setLoading(false)
 

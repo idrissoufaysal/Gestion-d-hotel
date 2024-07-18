@@ -17,7 +17,7 @@ router.get('/', async (req, res, next) => {
             where: {
                 // Appliquer les autres filtres
                 ...others,
-                ...(featured && { featured: featured === "true" }),                // Appliquer les filtres de prix
+                ...(featured && { featured: featured === "true" }),// Appliquer les filtres de prix
                 cheapesPrice: {
                     gte: parseInt(min) || 1,
                     lte: parseInt(max) || 999,

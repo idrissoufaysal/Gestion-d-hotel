@@ -7,7 +7,6 @@ function Navbar() {
         <Link to='/'>
           <span>B13_Hotels</span>
         </Link>
-
         <div className="button">
           <Link to={'/login'}>
             <button className="navButton">Login</button>

@@ -11,12 +11,10 @@ router.get('/', async (req, res, next) => {
     try {
         const rooms = await prisma.room.findMany({
             include: {
-                roomNumbers: {
-
-                }
+                roomNumbers:{}
             }
         })
-        rooms.length == 0 ? res.json("c'est carement vide") : res.status(200).json(rooms)
+        rooms.length == 0 ? res.json("c'est carement vide"):res.status(200).json(rooms)
 
     } catch (error) {
         next(error)

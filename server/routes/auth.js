@@ -18,7 +18,7 @@ router.post("/register", async (req, res, next) => {
         username,
         email,
         password: hashPass,
-      },
+      }, 
     });
 
     const { password, isAdmin, ...other } = newUser;
@@ -53,7 +53,10 @@ router.post("/login", async (req, res, next) => {
     httpOnly:true,
   })
   .status(200)
-  .json("vous etes connete cher "+user.username)
+  .json({
+    user:user,
+    token:token
+  })
 
   } catch (error) {
     next(error);

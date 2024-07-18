@@ -12,7 +12,8 @@ import "react-date-range/dist/theme/default.css"; // theme css file
 import { format } from "date-fns";
 import { useState } from "react";
 import { DateSelection, Options } from "../utils/types";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useSearchStore } from "../states/store";
 
 const Header = () => {
   const [openDate, setOpenDate] = useState(false);
@@ -26,25 +27,29 @@ const Header = () => {
     },
   ]);
 
-  const [options, setOptions] = useState<Options>({
+  const [options, setLocalOptions] = useState<Options>({
     adult: 1,
     children: 0,
     room: 1,
   });
 
+  const {setCity,setOptions,setDates}=useSearchStore()
   const navigate = useNavigate()
 
   const handlChange = (name: keyof Options, operation: "i" | "d") => {
-    setOptions((prev) => {
+    setLocalOptions((prev) => {
       return {
         ...prev,
         [name]:
-          operation === "i" ? (options[name] as number) + 1 : options[name] - 1,
+          operation === "i" ? (options[name] as number) + 1 : (options[name] as number) - 1,
       };
     });
   };
 
   const handleSearch = () => {
+setCity(destination)
+setDates(date)
+setOptions(options)
     navigate('/hotels', { state: { destination, date, options } })
   }
 
@@ -77,7 +82,9 @@ const Header = () => {
           l'oiseau sur le baobabe ne doit jamais qu'il a porter des Lunette et
           aussi la genille ne porte de lunette quand elle boie l'eau
         </p>
+        <Link to='/login'>
         <button className="btn">Sign in / Register</button>
+        </Link>
         <div className="headerSearch">
           <div className="headerSearchItem">
             <LocalHotelIcon />
@@ -94,8 +101,8 @@ const Header = () => {
                 editableDateInputs={true}
                 onChange={(item) => setDate([item.selection as DateSelection])}
                 moveRangeOnFirstSelection={false}
-                ranges={date} // Remarquez que je mets date entre crochets pour créer un tableau de date, car DateRange attend un tableau pour les plages de dates
-                className="date"
+                ranges={date} 
+                className="date"          
               />
             )}
           </div>
@@ -107,7 +114,7 @@ const Header = () => {
                 <span className="optionText">Adult</span>
                 <div className="actions">
                   <button
-                    disabled={options.adult <= 1}
+                    disabled={(options.adult as number) <= 1}
                     onClick={() => handlChange("adult", "d")}
                   >
                     -
@@ -120,7 +127,7 @@ const Header = () => {
                 <span className="optionText">Children</span>
                 <div className="actions">
                   <button
-                    disabled={options.children <= 1}
+                    disabled={(options.children as number) <= 1}
                     onClick={() => handlChange("children", "d")}
                   >
                     -
@@ -135,7 +142,7 @@ const Header = () => {
                 <span className="optionText">Room</span>
                 <div className="actions">
                   <button
-                    disabled={options.room <= 0}
+                    disabled={(options.room as number) <= 0}
                     onClick={() => handlChange("room", "d")}
                   >
                     -

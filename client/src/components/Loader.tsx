@@ -1,6 +1,5 @@
 
 
-import React from 'react'
 
 // const loaderStyles = {
 //     position: "fixed",
@@ -9,12 +8,12 @@ import React from 'react'
 //     transform: "translate(-50%, -50%)",
 //   };
 
-export default function Loader() {
-  return (
-    <div>
-      {/* <div style={loaderStyles}>
-            <SyncLoader color="#4890a6" loading={true} size={15} />
-          </div> */}
-    </div>
-  )
-}
+// export default function Loader() {
+//   return (
+//     <div>
+//       {/* <div style={loaderStyles}>
+//             <SyncLoader color="#4890a6" loading={true} size={15} />
+//           </div> */}
+//     </div>
+//   )
+// }

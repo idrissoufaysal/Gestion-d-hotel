@@ -1,35 +1,70 @@
 
-
 export interface DateSelection {
-    startDate: Date;
-    endDate: Date | null;
-    key: string;
-  }
+  startDate: Date;
+  endDate: Date;
+  key: string;
+}
 
-  export interface Options {
-    adult: number;
-    children: number;
-    room: number;
-  }
-  
-  export interface Home1{
-     image:string,
-     title:string,
-     title2:string
-     price?: number 
-  }
+//////////////////// State management /////////////////
+export interface Options {
+  adult?: number;
+  children?: number;
+  room?: number;
+}
 
-  export interface Home2{
-     image:string,
-     title:string,
-     title2:string
-     price?: number 
-  }
+export interface State{
+  city?: string,
+  dates: DateSelection[],
+  options: Options
+}
 
- export interface PropertyType {
-   type: string;
-   count: number;
- }
+export interface StoreState extends State {
+  setCity: (city: string) => void;
+  setDates: (dates: DateSelection[]) => void;
+  setOptions: (options: Options) => void;
+  resetSearch: () => void;
+}
+///////////////////////////////////////////////////////////  
+
+
+////USER AUTH/////////////////////////
+export interface User {
+  id: number;
+  email: string;
+  username: string;
+  password: string;
+  isAdmin: boolean;
+  createdAt: string;
+  updatedAt: string;
+  role: 'USER' | 'ADMIN';
+}
+
+export interface AuthResponse {
+  user: User;
+  token: string;
+}
+
+///////////////////////////////////////
+
+
+export interface Home1 {
+  image: string,
+  title: string,
+  title2: string
+  price?: number
+}
+
+export interface Home2 {
+  image: string,
+  title: string,
+  title2: string
+  price?: number
+}
+
+export interface PropertyType {
+  type: string;
+  count: number;
+}
 
 export interface Room {
   // Ajoutez ici les propriétés de Room, si nécessaire
@@ -50,6 +85,6 @@ export interface Property {
   rating: number;
   rooms: Room[];
 }
- 
- 
-  
+
+
+

@@ -172,7 +172,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    
+
     .siRating {
       display: flex;
       justify-content: space-between;
@@ -435,29 +435,42 @@
   align-items: center;
   height: 100vh;
   width: 100vw;
-  background-color: $gris-clair;
-
+  background-color:white;
+  
   .loginPage {
-    height: 400px;
-    width: 440px;
-    background-color: rgb(15, 76, 129, 0.4);
+    height: 450px;
+    width: 830px;
+    background-color:rgb(224, 229, 233,0.5);
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-    border-radius: 5px;
+    border-radius: 15px;
     gap: 10px;
-    padding: 10px;
-
+        
+    .hello{
+      height: 100%;
+      width: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      gap: 40px;
+      background-color: $couleur-principale;
+      border-left: 10px;
+    }
     h1 {
       font-size: 20px;
       align-self: center;
     }
 
     .l {
-
       label {
         font-size: 15px;
+      }
+      .connect{
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
 
       input {
@@ -469,7 +482,6 @@
         width: 300px;
         justify-content: center;
         align-items: center;
-
       }
     }
 
