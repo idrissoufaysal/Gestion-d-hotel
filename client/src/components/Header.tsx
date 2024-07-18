@@ -14,6 +14,7 @@ import { useState } from "react";
 import { DateSelection, Options } from "../utils/types";
 import { Link, useNavigate } from "react-router-dom";
 import { useSearchStore } from "../states/store";
+import { useAuth } from "../states/userStore";
 
 const Header = () => {
   const [openDate, setOpenDate] = useState(false);
@@ -52,6 +53,8 @@ setDates(date)
 setOptions(options)
     navigate('/hotels', { state: { destination, date, options } })
   }
+  const { currentUser } = useAuth()
+
 
   return (
     <div className="header">
@@ -82,9 +85,9 @@ setOptions(options)
           l'oiseau sur le baobabe ne doit jamais qu'il a porter des Lunette et
           aussi la genille ne porte de lunette quand elle boie l'eau
         </p>
-        <Link to='/login'>
+       {!currentUser && <Link to='/login'>
         <button className="btn">Sign in / Register</button>
-        </Link>
+        </Link>}
         <div className="headerSearch">
           <div className="headerSearchItem">
             <LocalHotelIcon />

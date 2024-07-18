@@ -8,9 +8,10 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
 import useFetch from "../hooks/useFetch";
 import { Property } from "../utils/types";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { dayDifferance } from "../utils/function";
 import { useSearchStore } from "../states/store";
+import { useAuth } from "../states/userStore";
 const Hotel = () => {
   const photo = [
     {
@@ -37,12 +38,13 @@ const Hotel = () => {
   const location = useLocation()
   const hotelId = location.pathname.split("/")[2]
   // console.log(hotelId);
-
-  const {dates,options}=useSearchStore()
-  const { data,loading } = useFetch<Property>(`/hotel/${parseInt(hotelId)}`)
+  const navigate = useNavigate()
+  const { dates, options } = useSearchStore()
+  const { data, loading } = useFetch<Property>(`/hotel/${parseInt(hotelId)}`)
 
   const [openImage, setOpenImage] = useState(false);
   const [sliderIndex, setSliderIndex] = useState(0);
+  const [openModal, setOpenModal] = useState(false)
   const handlOpen = (index: number) => {
     setOpenImage(true);
     setSliderIndex(index);
@@ -62,7 +64,17 @@ const Hotel = () => {
     }
   };
 
-const days=dayDifferance(dates[0].endDate,dates[0].startDate)
+  const days = dayDifferance(dates[0].endDate, dates[0].startDate)
+  const { currentUser } = useAuth()
+
+  const handleClick = () => {
+
+    if (currentUser) {
+      setOpenModal(true)
+    } else {
+      navigate('/register')
+    }
+  }
   return (
     <div>
       <Navbar />
@@ -110,7 +122,7 @@ const days=dayDifferance(dates[0].endDate,dates[0].startDate)
                 <div className="hotelDetailsTexts">
                   <h1>{data?.title}</h1>
                   <p>
-                   {data?.desc}
+                    {data?.desc}
                   </p>
                 </div>
                 <div className="hotelDetailsPrice">
@@ -120,9 +132,9 @@ const days=dayDifferance(dates[0].endDate,dates[0].startDate)
                     excellent location score of 9.8
                   </span>
                   <h2>
-                    <b>${options.room &&  days*options.room}</b> ({days} nights)
+                    <b>${options.room && days * options.room}</b> ({days} nights)
                   </h2>
-                  <button>Reserve or Book Now !</button>
+                  <button onClick={handleClick}>Reserve or Book Now !</button>
                 </div>
               </div>
             </div>
