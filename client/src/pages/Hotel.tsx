@@ -99,7 +99,7 @@ const Hotel = () => {
               </div>
             </div>
           )}
-          {}
+          
           <div className="hotelWrapper">
             <h1>{data?.name}</h1>
             <div className="location">
