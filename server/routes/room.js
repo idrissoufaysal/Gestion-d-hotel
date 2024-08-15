@@ -11,7 +11,11 @@ router.get('/', async (req, res, next) => {
     try {
         const rooms = await prisma.room.findMany({
             include: {
-                roomNumbers:{}
+                roomNumbers:{
+                 include:{
+                    unavailableDates:{}
+                 }
+                }
             }
         })
         rooms.length == 0 ? res.json("c'est carement vide"):res.status(200).json(rooms)
@@ -53,18 +57,45 @@ router.post('/:id', async (req, res, next) => {
     const hotelId = parseInt(req.params.id)
     const { title, price, maxPeople, desc, roomNumbers } = req.body
 
+    const existingHotel = await prisma.hotel.findUnique({ where: { id: hotelId } });
+    if (!existingHotel) {
+        return res.status(404).json({ message: "Hotel non trouvé" });
+    }
+
     try {
+
+        if (!Array.isArray(roomNumbers)) {
+            return res.status(400).json({ message: "roomNumbers doit être un tableau" });
+        }
+
+        // Validation et formatage des dates
+        roomNumbers.forEach(roomNumber => {
+            if (!Array.isArray(roomNumber.unavailableDates)) {
+                roomNumber.unavailableDates = [];
+            }
+
+            roomNumber.unavailableDates = roomNumber.unavailableDates.map(date => {
+                const parsedDate = new Date(date);
+                if (isNaN(parsedDate.getTime())) {
+                    throw new Error(`Date invalide: ${JSON.stringify(date)}`); 
+                }
+                return parsedDate; 
+            });
+        });
+
         //Creation d'une room avec les numeros de chambre
         const newRoom = await prisma.room.create({
             data: {
                 title, price, maxPeople, desc, hotelId, roomNumbers: {
                     create: roomNumbers?.map(roomNumber => ({
                         number: roomNumber.number,
-                        unavailableDates: {
-                            create: roomNumber?.unavailableDates?.map(date => ({
-                                date: new Date(date),
-                            })),
-                        },
+                        unavailableDates: roomNumber.unavailableDates?.length
+                            ? {
+                                create: roomNumber.unavailableDates.map(date => ({
+                                    date: new Date(date),
+                                })),
+                            }
+                            : undefined,
                     })),
                 },
 

@@ -26,9 +26,9 @@ export const useAuth = create<AuthStore>((set) => ({
     error: null,
     status:false,
     login: async (inputs) => {
-        set({ loading: true, error: null })
+        set({ loading: true, error: null,status:false })
         try {
-            const res = await axios.post("http://localhost:8000/auth/login", inputs)
+            const res = await axios.post("http://localhost:9000/auth/login", inputs)
             set({ currentUser: res.data })
             if(res.status==200){
                 set({status:true})
@@ -47,7 +47,7 @@ export const useAuth = create<AuthStore>((set) => ({
     register: async (inputs) => {
         set({ loading: true, error: null })
         try {
-            const res = await axios.post("http://localhost:8000/auth/register", inputs)
+            const res = await axios.post("http://localhost:9000/auth/register", inputs)
             res.status==200 && set({status:true})
             console.log(res.data);
         } catch (e) {
@@ -60,7 +60,7 @@ export const useAuth = create<AuthStore>((set) => ({
     logout: async (userLogout) => {
         set({ loading: true, error: null })
         try {
-            await axios.post("http://localhost:8000/auth/logout", userLogout)
+            await axios.post("http://localhost:9000/auth/logout", userLogout)
             set({ currentUser: null, loading: false })
             localStorage.removeItem('currentUser')
         } catch (e) {

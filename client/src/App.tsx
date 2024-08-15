@@ -10,6 +10,7 @@ import Hotel from "./pages/Hotel";
 
 import './styles/components.scss'
 import './styles/pages.scss'
+import Reserve from "./components/Reserve";
 
 
 function App() {

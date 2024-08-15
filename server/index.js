@@ -8,9 +8,8 @@ const { PrismaClient } = require("@prisma/client");
 
 const app = express();
 dotenv.config();
+
 //Midlleware
-
-
 app.use((err, req, res, next) => {       
   const errorStatus = err.status || 500;
   const errorMessage = err.message || "il ya une erreur";

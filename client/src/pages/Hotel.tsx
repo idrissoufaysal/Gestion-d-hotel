@@ -12,6 +12,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { dayDifferance } from "../utils/function";
 import { useSearchStore } from "../states/store";
 import { useAuth } from "../states/userStore";
+import Reserve from "../components/Reserve";
 const Hotel = () => {
   const photo = [
     {
@@ -76,7 +77,7 @@ const Hotel = () => {
     }
   }
   return (
-    <div>
+    <div className="relative">
       <Navbar />
       {
         loading ? ("Loading...") : (
@@ -135,6 +136,7 @@ const Hotel = () => {
                     <b>${options.room && days * options.room}</b> ({days} nights)
                   </h2>
                   <button onClick={handleClick}>Reserve or Book Now !</button>
+                  {openModal && <Reserve openModal={openModal} hotelId={data?.id as number}  />}
                 </div>
               </div>
             </div>

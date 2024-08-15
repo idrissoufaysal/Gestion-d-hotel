@@ -44,7 +44,7 @@ router.post("/login", async (req, res, next) => {
       return res.status(404).json("mot de pass incorrect");
     }
 
-    const token = jwt.sign(
+    const token = jwt.sign( 
       { id: user.id, isAdmin: user.isAdmin },
       process.env.JWT_SECRETE
     );

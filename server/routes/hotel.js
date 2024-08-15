@@ -34,7 +34,8 @@ router.get('/', async (req, res, next) => {
             // Limiter le nombre de résultats
             take: limit ? parseInt(limit) : undefined,
         });
-
+        console.log(hotels.length);
+        
         res.status(200).json(hotels);
     } catch (error) {
         next(error);
