@@ -26,6 +26,38 @@ router.get('/', async (req, res, next) => {
 }
 )
 
+//afficher les chambre d'une propriete
+router.get('/hotel/:hotelId', async (req, res, next) => {
+    const hotelId = parseInt(req.params.hotelId)  
+    try {
+        const existingHotel = await prisma.hotel.findUnique({
+            where: { id: hotelId },
+            include: {
+                rooms: {
+                    include: {
+                        roomNumbers: {
+                            include:{
+                                unavailableDates:{}
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        if (!existingHotel) {
+          return  res.status(404).json("Hotel introuvable !!!") 
+        }
+
+        res.status(200).json(existingHotel.rooms)
+        console.log(existingHotel.rooms.length);
+        
+
+    } catch (error) {
+        next(error)
+    }
+}
+)
+
 //Afficher une room
 router.get('/:id', async (req, res, next) => {
     const roomId = req.params.id

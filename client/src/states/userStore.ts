@@ -19,12 +19,15 @@ interface AuthStore {
     register: (inputs: Inputs) => Promise<void>
 
 }
+const storedUser = localStorage.getItem("currentUser");
+  const initialUser:AuthResponse = storedUser ? JSON.parse(storedUser) : null;
 
 export const useAuth = create<AuthStore>((set) => ({
-    currentUser: null,
+    currentUser:  initialUser,
     loading: false,
     error: null,
     status:false,
+
     login: async (inputs) => {
         set({ loading: true, error: null,status:false })
         try {

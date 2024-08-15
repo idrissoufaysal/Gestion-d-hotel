@@ -35,17 +35,16 @@ const Hotel = () => {
     },
   ];
 
-
-  const location = useLocation()
-  const hotelId = location.pathname.split("/")[2]
+  const location = useLocation();
+  const hotelId = location.pathname.split("/")[2];
   // console.log(hotelId);
-  const navigate = useNavigate()
-  const { dates, options } = useSearchStore()
-  const { data, loading } = useFetch<Property>(`/hotel/${parseInt(hotelId)}`)
+  const navigate = useNavigate();
+  const { dates, options } = useSearchStore();
+  const { data, loading } = useFetch<Property>(`/hotel/${parseInt(hotelId)}`);
 
   const [openImage, setOpenImage] = useState(false);
   const [sliderIndex, setSliderIndex] = useState(0);
-  const [openModal, setOpenModal] = useState(false)
+  const [openModal, setOpenModal] = useState(false);
   const handlOpen = (index: number) => {
     setOpenImage(true);
     setSliderIndex(index);
@@ -58,92 +57,95 @@ const Hotel = () => {
       setSliderIndex(newSlideNumber);
     }
     if (action == "r") {
-      newSlideNumber = sliderIndex == 0 ? 5 : sliderIndex - 1
+      newSlideNumber = sliderIndex == 0 ? 5 : sliderIndex - 1;
 
       //setSliderIndex(sliderIndex -1);
       setSliderIndex(newSlideNumber);
     }
   };
 
-  const days = dayDifferance(dates[0].endDate, dates[0].startDate)
-  const { currentUser } = useAuth()
+  const days = dayDifferance(dates[0]?.endDate, dates[0]?.startDate);
+
+  const { currentUser } = useAuth();
 
   const handleClick = () => {
-
     if (currentUser) {
-      setOpenModal(true)
+      setOpenModal(true);
     } else {
-      navigate('/register')
+      navigate("/register");
     }
-  }
+  };
+  
   return (
     <div className="relative">
       <Navbar />
-      {
-        loading ? ("Loading...") : (
-          <div className="hotelContainer">
-            {openImage && (
-              <div className="slider">
-                <div className="sliderWrapper">
-                  <CloseIcon className="c" onClick={() => setOpenImage(false)} />
-                  <ArrowBackIosIcon
-                    className="b"
-                    onClick={() => handleSlider("r")}
-                  />
-                  <img src={photo[sliderIndex].src} alt="" />
-                  <ArrowForwardIosIcon
-                    className="b"
-                    onClick={() => handleSlider("s")}
-                  />
-                </div>
-              </div>
-            )}
-            { }
-            <div className="hotelWrapper">
-              <h1>{data?.name}</h1>
-              <div className="location">
-                <LocationOnIcon fontSize="small" elevation={80} />
-                <span>{data?.address}</span>
-              </div>
-              <span className="hotelDistance">
-                Excellent location {data?.distance} from center
-              </span>
-              <span className="hotelPrice">
-                Book a stay over ${data?.cheapesPrice} at this property and get a free aiport taxi
-              </span>
-              <button className="book1">Book now</button>
-              <div className="hotelImages">
-                {photo.map((p, i) => (
-                  <div key={i} className="hotelImgWrapper">
-                    <img src={p.src} onClick={() => handlOpen(i)} alt="" />
-                  </div>
-                ))}
-              </div>
-              <div className="hotelDetails">
-                <div className="hotelDetailsTexts">
-                  <h1>{data?.title}</h1>
-                  <p>
-                    {data?.desc}
-                  </p>
-                </div>
-                <div className="hotelDetailsPrice">
-                  <h1>Perfect for a {days}-night stay</h1>
-                  <span>
-                    Located in the real heart of krakow, this property has an
-                    excellent location score of 9.8
-                  </span>
-                  <h2>
-                    <b>${options.room && days * options.room}</b> ({days} nights)
-                  </h2>
-                  <button onClick={handleClick}>Reserve or Book Now !</button>
-                  {openModal && <Reserve openModal={openModal} hotelId={data?.id as number}  />}
-                </div>
+      {loading ? (
+        "Loading..."
+      ) : (
+        <div className="hotelContainer">
+          {openImage && (
+            <div className="slider">
+              <div className="sliderWrapper">
+                <CloseIcon className="c" onClick={() => setOpenImage(false)} />
+                <ArrowBackIosIcon
+                  className="b"
+                  onClick={() => handleSlider("r")}
+                />
+                <img src={photo[sliderIndex].src} alt="" />
+                <ArrowForwardIosIcon
+                  className="b"
+                  onClick={() => handleSlider("s")}
+                />
               </div>
             </div>
-            <MailList />
-            <Footer />
-          </div>)
-      }
+          )}
+          {}
+          <div className="hotelWrapper">
+            <h1>{data?.name}</h1>
+            <div className="location">
+              <LocationOnIcon fontSize="small" elevation={80} />
+              <span>{data?.address}</span>
+            </div>
+            <span className="hotelDistance">
+              Excellent location {data?.distance} from center
+            </span>
+            <span className="hotelPrice">
+              Book a stay over ${data?.cheapesPrice} at this property and get a
+              free aiport taxi
+            </span>
+            <button className="book1">Book now</button>
+            <div className="hotelImages">
+              {photo.map((p, i) => (
+                <div key={i} className="hotelImgWrapper">
+                  <img src={p.src} onClick={() => handlOpen(i)} alt="" />
+                </div>
+              ))}
+            </div>
+            <div className="hotelDetails">
+              <div className="hotelDetailsTexts">
+                <h1>{data?.title}</h1>
+                <p>{data?.desc}</p>
+              </div>
+              <div className="hotelDetailsPrice">
+                <h1>Perfect for a {days}-night stay</h1>
+                <span>
+                  Located in the real heart of krakow, this property has an
+                  excellent location score of 9.8
+                </span>
+                <h2>
+                  <b>${options.room && days * options.room}</b> ({days} nights)
+                </h2>
+                <button onClick={handleClick} className="cursor-pointer hover:bg-[#1267b1]">Reserve or Book Now !</button>
+              </div>
+            </div>
+          </div>
+          <MailList />
+          <Footer />
+        </div>
+      )}
+      {openModal && (
+          <Reserve setOpen={()=>setOpenModal(false)} dataItem={data as Property} />
+      )}
     </div>
   );
 };

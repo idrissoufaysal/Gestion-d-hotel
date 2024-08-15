@@ -1,25 +1,64 @@
+import { IoMdClose } from "react-icons/io";
+import { Property, Room } from "../utils/types";
+import useFetch from "../hooks/useFetch";
+
 const Reserve = ({
-  openModal,
-  hotelId,
+  setOpen,
+  dataItem,
 }: {
-  openModal: boolean;
-  hotelId: number;
+  setOpen: () => void;
+  dataItem: Property;
 }) => {
+  const { data, error, loading } = useFetch<Room[]>(
+    `/room/hotel/${dataItem.id}`
+  );
+  console.log(data);
   return (
     <>
-      {openModal && <div className="w-screen h-screen bg-[#00000059] absolute flex justify-center items-center">
-        
-        <div className="w-[500px] h-[400px] bg-white">
-          <div className="flex justify-end gap-4">
-            <button onClick={() => openModal(false)}>X</button>
+      <div className="w-screen h-screen bg-[#00000036] fixed top-0 left-0 flex justify-center items-center">
+        <div className="w-[600px] h-[500px] bg-white rounded-md relative flex flex-col gap-4">
+          <div className="absolute top-2 right-2">
+            <IoMdClose
+              onClick={setOpen}
+              fontSize={20}
+              className="cursor-pointer hover:text-red-500"
+            />
           </div>
-          <h2 className="text-center text-3xl">
-            Réservez votre chambre pour {hotelId}
-          </h2>
+          <span className="text-center text-2xl mt-9">
+            Réservez votre chambre pour la propriete{" "}
+            <span className="font-bold">{dataItem?.name}</span>
+          </span>
 
-          {/* form */}
+          <div className="w-full flex justify-center items-center ">
+            {loading ? (
+              <div className="spinner-border text-primary" role="status">
+                <span className="sr-only">Loading...</span>
+              </div>
+            ) : (
+              data?.map((room) => (
+                <div key={room.id} className="flex justify-evenly w-full">
+                  <div className="flex flex-col gap-1">
+                    <div className="text-xl">Titre:{room?.title}</div>
+                    <div className="">Descritpion: {room.desc}</div>
+                    <span className="font-bold ">Prix :{room.price} $$</span>
+                  </div>
+
+                  {room.roomNumbers.map((rNumber) => (
+                    <div className="flex">
+                      <div className="flex flex-col">
+                        <input type="checkbox"
+                        
+                        />
+                        <span>{rNumber.number}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ))
+            )}
+          </div>
         </div>
-      </div>}
+      </div>
     </>
   );
 };

@@ -66,10 +66,34 @@ export interface PropertyType {
   count: number;
 }
 
-export interface Room {
-  // Ajoutez ici les propriétés de Room, si nécessaire
-  // Exemple : roomNumber: number;
+// Interface pour UnavailableDate
+export interface UnavailableDate {
+  id: number;
+  date: string; // Utilisation de string pour représenter une date en format ISO
+  roomNumberId: number;
 }
+
+// Interface pour RoomNumber
+export interface RoomNumber {
+  id: number;
+  number: number;
+  roomId: number;
+  unavailableDates: UnavailableDate[];
+}
+
+// Interface pour Room
+export interface Room {
+  id: number;
+  title: string;
+  desc: string;
+  price: number;
+  maxPeople: number;
+  hotelId: number;
+  roomNumbers: RoomNumber[];
+}
+
+// Type pour un tableau de Room
+
 
 export interface Property {
   id: number;
