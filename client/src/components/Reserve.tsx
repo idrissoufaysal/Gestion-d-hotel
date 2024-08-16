@@ -1,6 +1,7 @@
 import { IoMdClose } from "react-icons/io";
 import { Property, Room } from "../utils/types";
 import useFetch from "../hooks/useFetch";
+import { Button } from "@/components/ui/button"
 
 const Reserve = ({
   setOpen,
@@ -12,6 +13,10 @@ const Reserve = ({
   const { data, error, loading } = useFetch<Room[]>(
     `/room/hotel/${dataItem.id}`
   );
+
+if(error) console.log(error);
+
+
   console.log(data);
   return (
     <>
@@ -57,6 +62,7 @@ const Reserve = ({
               ))
             )}
           </div>
+          <Button>Click me</Button>
         </div>
       </div>
     </>
