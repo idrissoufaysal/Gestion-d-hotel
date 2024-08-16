@@ -1,7 +1,7 @@
 import { IoMdClose } from "react-icons/io";
 import { Property, Room } from "../utils/types";
 import useFetch from "../hooks/useFetch";
-import { Button } from "@/components/ui/button"
+import { Button } from "../../components/ui/button"
 
 const Reserve = ({
   setOpen,
