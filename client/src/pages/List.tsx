@@ -1,21 +1,26 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useLocation } from "react-router-dom";
-import Navbar from "../components/NavBar";
-import { SetStateAction, useState } from "react";
-import { format } from "date-fns";
-import { DateRange } from "react-date-range";
-import SearchItem from "../components/SearchItem";
+import Navbar from "../components2/NavBar";
+import { SetStateAction, useEffect, useState } from "react";
+import { format,addDays } from "date-fns";
+import SearchItem from "../components2/SearchItem";
 import useFetch from "../hooks/useFetch";
 import { Property } from "../utils/types";
 import { useSearchStore } from "../states/store";
-import { MILLISECOND_PER_DAYS, dayDifferance } from "../utils/function";
+import { DatePickerWithRange } from "../components2/DateRangePicker";
+import { DateRange } from "react-day-picker";
 
 export default function List() {
   const location = useLocation();
   const [openDate, setOpenDate] = useState(false);
   const [destination, setDestination] = useState(location.state.destination);
   const [options, setoptions] = useState(location.state.options);
-  const [date, setDate] = useState(location.state.date);
+  //const [date, setDate] = useState(location.state.date);
+  
+  const [date, setDate] = useState<DateRange | undefined>({
+    from: location.state.date.from,
+    to: location.state.date.to,
+  });
   const [min, setMin] = useState("");
   const [max, setMax] = useState("");
   // const [price, setPrice] = useState(
@@ -25,11 +30,14 @@ export default function List() {
   //   }
 
   // );
+useEffect(()=>{
+console.log(location.state.date);
 
+},[])
   const { data, loading, reFetch } = useFetch<Property[]>(
     `/hotel?city=${destination}&min=${min || 0}&max=${max || 999}`
   );
-  const { dates } = useSearchStore();
+  const { dates, setDates } = useSearchStore();
   //console.log(destination);
 
   // const handlChange = (e: { target: { name: string, value: string } }) => {
@@ -38,14 +46,15 @@ export default function List() {
   //   ))
   // }
 
-  console.log(MILLISECOND_PER_DAYS);
-  console.log(dayDifferance(dates[0].endDate, dates[0].startDate));
+  // console.log(MILLISECOND_PER_DAYS);
+  // console.log(dayDifferance(dates[0].endDate, dates[0].startDate));
 
   const handleClick = () => {
     console.log(min);
     console.log(max);
     reFetch();
   };
+ 
 
   return (
     <div>
@@ -63,23 +72,9 @@ export default function List() {
                   onChange={(e) => setDestination(e.target.value)}
                 />
               </div>
-              <div className="lsItem">
+              <div className="lsItem flex flex-col">
                 <label htmlFor="">Check-in Date</label>
-                <span
-                  className="dateSpan"
-                  onClick={() => setOpenDate(!openDate)}
-                >{`${format(date[0].startDate, "dd/MM/yyyy")} au ${format(
-                  date[0].endDate!,
-                  "dd/MM/yyyy"
-                )}`}</span>
-
-                {openDate && (
-                  <DateRange
-                    onChange={(item) => setDate([item.seletion])}
-                    minDate={new Date()}
-                    ranges={date}
-                  />
-                )}
+                <DatePickerWithRange date={date} setDate={setDates(date)} />
               </div>
               <div className="lsItem">
                 <label htmlFor="">Option</label>

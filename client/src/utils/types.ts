@@ -1,3 +1,4 @@
+import { DateRange } from "react-day-picker"
 
 export interface DateSelection {
   startDate: Date;
@@ -14,13 +15,13 @@ export interface Options {
 
 export interface State{
   city?: string,
-  dates: DateSelection[],
+  dates: DateRange ,
   options: Options
 }
 
 export interface StoreState extends State {
-  setCity: (city: string) => void;
-  setDates: (dates: DateSelection[]) => void;
+  setCity: (city: string | undefined) => void;
+  setDates: (dates: DateRange | undefined) => void;
   setOptions: (options: Options) => void;
   resetSearch: () => void;
 }

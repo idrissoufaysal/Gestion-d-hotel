@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../states/userStore';
 import { useState } from 'react';
+import { Button } from '@/components/ui/button';
 
 const Login = () => {
     const [email, setEmail] = useState("")
@@ -60,7 +61,7 @@ const Login = () => {
                     </div>
 
                     <div className="r">
-                        <button className='px-4 py-2 bg-couleur-principale rounded-xl text-gris-clair w-full mt-8' onClick={handleSubmit}>se connecter</button>
+                        <Button className='w-full' onClick={handleSubmit}>se connecter</Button>
                     </div>
                     {errorStatus && (<span className='text-red-500'> {errorMessage}</span>)}
                 </div>

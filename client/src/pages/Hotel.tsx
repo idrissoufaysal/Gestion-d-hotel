@@ -1,18 +1,18 @@
-import Footer from "../components/Footer";
-import MailList from "../components/MailList";
-import Navbar from "../components/NavBar";
+import Footer from "../components2/Footer";
+import MailList from "../components2/MailList";
+import Navbar from "../components2/NavBar";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import CloseIcon from "@mui/icons-material/Close";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useFetch from "../hooks/useFetch";
 import { Property } from "../utils/types";
 import { useLocation, useNavigate } from "react-router-dom";
-import { dayDifferance } from "../utils/function";
 import { useSearchStore } from "../states/store";
 import { useAuth } from "../states/userStore";
-import Reserve from "../components/Reserve";
+import Reserve from "../components2/Reserve";
+import differenceInCalendarDays from "date-fns/differenceInCalendarDays";
 const Hotel = () => {
   const photo = [
     {
@@ -41,7 +41,7 @@ const Hotel = () => {
   const navigate = useNavigate();
   const { dates, options } = useSearchStore();
   const { data, loading } = useFetch<Property>(`/hotel/${parseInt(hotelId)}`);
-
+  const [days,setDays]=useState(0)
   const [openImage, setOpenImage] = useState(false);
   const [sliderIndex, setSliderIndex] = useState(0);
   const [openModal, setOpenModal] = useState(false);
@@ -64,7 +64,7 @@ const Hotel = () => {
     }
   };
 
-  const days = dayDifferance(dates[0]?.endDate, dates[0]?.startDate);
+  //const days = dayDifferance(dates[0]?.endDate, dates[0]?.startDate);
 
   const { currentUser } = useAuth();
 
@@ -75,6 +75,12 @@ const Hotel = () => {
       navigate("/register");
     }
   };
+
+  useEffect(()=>{
+     if(dates && dates.from && dates.to){
+      setDays(differenceInCalendarDays(dates?.to,dates?.from))
+     }
+  },[dates])
   
   return (
     <div className="relative">

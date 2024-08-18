@@ -1,7 +1,11 @@
 import { IoMdClose } from "react-icons/io";
 import { Property, Room } from "../utils/types";
 import useFetch from "../hooks/useFetch";
-import { Button } from "react-day-picker";
+import { DatePickerWithRange } from "./DateRangePicker";
+import { useSearchStore } from "../states/store";
+import { DateRange } from "react-day-picker";
+import { addDays } from "date-fns";
+import { useState } from "react";
 
 const Reserve = ({
   setOpen,
@@ -16,6 +20,14 @@ const Reserve = ({
 
 if(error) console.log(error);
 
+//store
+const { dates, setDates } = useSearchStore();
+
+
+const [date, setDate] = useState<DateRange | undefined>({
+  from: dates.from,
+  to: dates.to,
+});
 
   console.log(data);
   return (
@@ -61,9 +73,9 @@ if(error) console.log(error);
                 </div>
               ))
             )}
+          </div> 
+          <DatePickerWithRange date={dates} setDate={()=>setDates} />
           </div>
-          <Button>Click me</Button>
-        </div>
       </div>
     </>
   );

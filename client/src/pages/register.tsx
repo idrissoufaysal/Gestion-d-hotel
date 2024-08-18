@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../states/userStore'
 import { useState } from 'react'
+import { Button } from '@/components/ui/button'
 
 export default function Register() {
   const [username, setUsername] = useState("")
@@ -62,9 +63,9 @@ else{
             <label htmlFor="password">Password</label>
             <input type="password" placeholder='entrer votre mot de pass' onChange={(e) => setPassword(e.target.value)} />
           </div>
-          <div className="r">
+          <div className="r flex flex-col ">
 
-            <button className='px-4 py-2 bg-couleur-principale rounded-xl text-gris-clair w-full' onClick={handleSubmit}>S'inscrire</button>
+            <Button className='w-full' onClick={handleSubmit}>S'inscrire</Button>
             {errorStatus && (<span className='text-red-500 mt-8'> {errorMessage}</span>)}
 
           </div>

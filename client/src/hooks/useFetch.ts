@@ -28,7 +28,7 @@ const useFetch = <T,>(url: string) => {
     const reFetch = async () => {
         setLoading(true);
         try {
-            const res = await axios.get(`http://localhost:8000${url}`);
+            const res = await axios.get(`http://localhost:9000${url}`);
             setData(res.data);
             setLoading(false)
         } catch (error) {
