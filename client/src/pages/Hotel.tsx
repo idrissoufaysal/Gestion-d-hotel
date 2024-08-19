@@ -5,14 +5,14 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import CloseIcon from "@mui/icons-material/Close";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useFetch from "../hooks/useFetch";
 import { Property } from "../utils/types";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSearchStore } from "../states/store";
 import { useAuth } from "../states/userStore";
 import Reserve from "../components2/Reserve";
-import differenceInCalendarDays from "date-fns/differenceInCalendarDays";
+import { useDays } from "../hooks/useDays";
 const Hotel = () => {
   const photo = [
     {
@@ -39,12 +39,13 @@ const Hotel = () => {
   const hotelId = location.pathname.split("/")[2];
   // console.log(hotelId);
   const navigate = useNavigate();
-  const { dates, options } = useSearchStore();
+  const { options } = useSearchStore();
+  const { days } = useDays();
   const { data, loading } = useFetch<Property>(`/hotel/${parseInt(hotelId)}`);
-  const [days,setDays]=useState(0)
   const [openImage, setOpenImage] = useState(false);
   const [sliderIndex, setSliderIndex] = useState(0);
   const [openModal, setOpenModal] = useState(false);
+
   const handlOpen = (index: number) => {
     setOpenImage(true);
     setSliderIndex(index);
@@ -76,14 +77,6 @@ const Hotel = () => {
     }
   };
 
-  useEffect(()=>{
-     if(dates && dates.from && dates.to){
-      setDays(differenceInCalendarDays(dates?.to,dates?.from))
-     }else{
-      setDays(100)
-     }
-  },[dates])
-  
   return (
     <div className="relative">
       <Navbar />
@@ -107,7 +100,7 @@ const Hotel = () => {
               </div>
             </div>
           )}
-          
+
           <div className="hotelWrapper">
             <h1>{data?.name}</h1>
             <div className="location">
@@ -141,9 +134,14 @@ const Hotel = () => {
                   excellent location score of 9.8
                 </span>
                 <h2>
-                  <b>${options.room && days * options.room}</b> ({days} nights)
+                  <b>${ days * (data?.cheapesPrice as number)}</b> ({days} nights)
                 </h2>
-                <button onClick={handleClick} className="cursor-pointer hover:bg-[#1267b1]">Reserve or Book Now !</button>
+                <button
+                  onClick={handleClick}
+                  className="cursor-pointer hover:bg-[#1267b1]"
+                >
+                  Reserve or Book Now !
+                </button>
               </div>
             </div>
           </div>
@@ -152,7 +150,10 @@ const Hotel = () => {
         </div>
       )}
       {openModal && (
-          <Reserve setOpen={()=>setOpenModal(false)} dataItem={data as Property} />
+        <Reserve
+          setOpen={() => setOpenModal(false)}
+          dataItem={data as Property}
+        />
       )}
     </div>
   );

@@ -2,7 +2,7 @@
 import { useLocation } from "react-router-dom";
 import Navbar from "../components2/NavBar";
 import { SetStateAction, useEffect, useState } from "react";
-import { format,addDays } from "date-fns";
+import { format, addDays } from "date-fns";
 import SearchItem from "../components2/SearchItem";
 import useFetch from "../hooks/useFetch";
 import { Property } from "../utils/types";
@@ -22,20 +22,11 @@ export default function List() {
   });
   const [min, setMin] = useState("");
   const [max, setMax] = useState("");
-  // const [price, setPrice] = useState(
-  //   {
-  //     minPrice: undefined,
-  //     maxPrice: undefined
-  //   }
 
-  // );
-useEffect(()=>{
-console.log(location.state.date);
-
-},[])
   const { data, loading, reFetch } = useFetch<Property[]>(
     `/hotel?city=${destination}&min=${min || 0}&max=${max || 999}`
   );
+
   const { dates, setDates } = useSearchStore();
   //console.log(destination);
 
@@ -55,7 +46,7 @@ console.log(location.state.date);
   };
   const handleDateChange = (range: DateRange) => {
     setDate(range);
-    setDates
+    setDates;
   };
 
   return (
@@ -76,7 +67,13 @@ console.log(location.state.date);
               </div>
               <div className="lsItem flex flex-col">
                 <label htmlFor="">Check-in Date</label>
-                <DatePickerWithRange date={date} setDate={setDates} />
+                <DatePickerWithRange
+                  date={date}
+                  setDate={(d) => {
+                    setDate(d); // Met à jour l'état local
+                    setDates(d as DateRange | undefined); // Met à jour l'état global
+                  }}
+                />
               </div>
               <div className="lsItem">
                 <label htmlFor="">Option</label>
