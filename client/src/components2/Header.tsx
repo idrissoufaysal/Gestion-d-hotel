@@ -80,7 +80,7 @@ const Header = () => {
         </div>
         <h1>A lifetime of discounts? Genius</h1>
         <p className="headerDesc">
-          l'oiseau sur le baobabe ne doit jamais qu'il a porter des Lunette et
+          l'oiseau sur le baobabe ne doit jamais oublier qu'il a porter des Lunette et
           aussi la genille ne porte de lunette quand elle boie l'eau
         </p>
         {!currentUser && (
