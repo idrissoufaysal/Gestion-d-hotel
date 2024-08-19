@@ -7,6 +7,7 @@ import { DateRange } from "react-day-picker";
 import { Button } from "@/components/ui/button";
 
 import { useState } from "react";
+// import axios from "axios";
 
 const Reserve = ({
   setOpen,
@@ -29,9 +30,11 @@ const Reserve = ({
     to: dates.to,
   });
 
-  const handleSubmit = (event:React.MouseEventHandler<HTMLButtonElement> | undefined) => {
-    event.preventdefault()
-    console.log(date);
+  const handleSubmit = async(event:React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault()
+ console.log('reserve avec succes');
+
+ 
   };
 
   console.log(data);

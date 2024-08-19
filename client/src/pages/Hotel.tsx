@@ -113,6 +113,8 @@ const Hotel = () => {
             <span className="hotelPrice">
               Book a stay over ${data?.cheapesPrice} at this property and get a
               free aiport taxi
+
+              <span>l'hotel conitent {data?.rooms.length} </span>
             </span>
             <button className="book1">Book now</button>
             <div className="hotelImages">

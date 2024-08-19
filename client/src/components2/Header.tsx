@@ -90,7 +90,7 @@ const Header = () => {
         )}
         <div className="headerSearch">
           <div className="headerSearchItem">
-            <LocalHotelIcon />
+            <LocalHotelIcon className="mr-2 text-couleur-principale" />
             <input
               type="text"
               placeholder="ou alons nous?"
@@ -101,7 +101,7 @@ const Header = () => {
             <DatePickerWithRange date={date} setDate={setDate} />
           </div>
           <div className="headerSearchItem">
-            <BoyIcon />
+            <BoyIcon className="text-couleur-principale" />
             <span
               onClick={() => setOpenOptions(!openOptions)}
             >{`${options.adult} adults ${options.children} children ${options.room} room`}</span>

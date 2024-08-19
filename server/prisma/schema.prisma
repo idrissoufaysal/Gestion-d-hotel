@@ -27,16 +27,18 @@ model User {
 model Hotel {
   id           Int      @id @default(autoincrement())
   name         String
-  type         String
+  type         HotelType
   city         String
   address      String
   distance     String
-  desc         String?
+  desc         String?  
   title        String?
   cheapesPrice Float?
   rooms        Room[]
   featured     Boolean?
   rating       Float?   @default(0.1)
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
 }
 
 model Room {
@@ -47,22 +49,20 @@ model Room {
   maxPeople   Int
   hotelId     Int
   hotel       Hotel        @relation(fields: [hotelId], references: [id])
-  roomNumbers RoomNumber[]
+  roomNumbers Int
+  reservations Reservation[]
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
 }
 
-model RoomNumber {
-  id               Int               @id @default(autoincrement())
-  number           Int
-  unavailableDates UnavailableDate[]
-  roomId           Int
-  room             Room              @relation(fields: [roomId], references: [id])
-}
-
-model UnavailableDate {
-  id           Int        @id @default(autoincrement())
-  date         DateTime
-  roomNumberId Int
-  roomNumber   RoomNumber @relation(fields: [roomNumberId], references: [id])
+model Reservation {
+  id              Int           @id @default(autoincrement())
+  startDate       DateTime
+  endDate         DateTime
+  roomId          Int
+  room            Room          @relation(fields: [roomId], references: [id])
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
 }
 
 model Photo {
@@ -74,3 +74,12 @@ enum Role {
   USER
   ADMIN
 }
+
+enum HotelType {
+  VILLA
+  MAISON
+  HOTEL
+  APPARTEMENT
+}
+
+
