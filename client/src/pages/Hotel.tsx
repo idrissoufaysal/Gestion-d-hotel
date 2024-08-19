@@ -79,6 +79,8 @@ const Hotel = () => {
   useEffect(()=>{
      if(dates && dates.from && dates.to){
       setDays(differenceInCalendarDays(dates?.to,dates?.from))
+     }else{
+      setDays(100)
      }
   },[dates])
   

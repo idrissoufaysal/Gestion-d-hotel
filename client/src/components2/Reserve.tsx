@@ -29,6 +29,7 @@ const [date, setDate] = useState<DateRange | undefined>({
   to: dates.to,
 });
 
+
   console.log(data);
   return (
     <>
@@ -74,7 +75,7 @@ const [date, setDate] = useState<DateRange | undefined>({
               ))
             )}
           </div> 
-          <DatePickerWithRange date={dates} setDate={()=>setDates} />
+          <DatePickerWithRange date={date} setDate={(d)=>setDates(d)} />
           </div>
       </div>
     </>

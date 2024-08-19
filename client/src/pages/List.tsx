@@ -16,7 +16,6 @@ export default function List() {
   const [destination, setDestination] = useState(location.state.destination);
   const [options, setoptions] = useState(location.state.options);
   //const [date, setDate] = useState(location.state.date);
-  
   const [date, setDate] = useState<DateRange | undefined>({
     from: location.state.date.from,
     to: location.state.date.to,
@@ -54,7 +53,10 @@ console.log(location.state.date);
     console.log(max);
     reFetch();
   };
- 
+  const handleDateChange = (range: DateRange) => {
+    setDate(range);
+    setDates
+  };
 
   return (
     <div>
@@ -74,7 +76,7 @@ console.log(location.state.date);
               </div>
               <div className="lsItem flex flex-col">
                 <label htmlFor="">Check-in Date</label>
-                <DatePickerWithRange date={date} setDate={setDates(date)} />
+                <DatePickerWithRange date={date} setDate={setDates} />
               </div>
               <div className="lsItem">
                 <label htmlFor="">Option</label>
