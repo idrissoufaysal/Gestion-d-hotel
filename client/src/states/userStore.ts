@@ -68,7 +68,9 @@ export const useAuth = create<AuthStore>((set) => ({
             localStorage.removeItem('currentUser')
         } catch (e) {
             console.log(e);
-
+            if (e instanceof AxiosError) {
+                set({ error: e.response?.data })
+            }
         }
     }
 }))

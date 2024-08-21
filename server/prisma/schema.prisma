@@ -14,60 +14,65 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  username  String?
-  password  String
-  isAdmin   Boolean  @default(false)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  role      Role     @default(USER)
+  id         Int      @id @default(autoincrement())
+  email      String   @unique
+  username   String?
+  password   String
+  isAdmin    Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  role       Role     @default(USER)
+  profileImg String?
 }
 
 model Hotel {
-  id           Int      @id @default(autoincrement())
-  name         String
+  id           Int       @id @default(autoincrement())
+  name         String?
   type         HotelType
   city         String
   address      String
   distance     String
-  desc         String?  
+  desc         String?
   title        String?
   cheapesPrice Float?
   rooms        Room[]
+  photos       Photo[]
   featured     Boolean?
-  rating       Float?   @default(0.1)
-  createdAt       DateTime      @default(now())
-  updatedAt       DateTime      @updatedAt
+  rating       Float?    @default(0.1)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
 }
 
 model Room {
-  id          Int          @id @default(autoincrement())
-  title       String
-  desc        String
-  price       Float
-  maxPeople   Int
-  hotelId     Int
-  hotel       Hotel        @relation(fields: [hotelId], references: [id])
-  roomNumbers Int
+  id    Int     @id @default(autoincrement())
+  title String?
+  desc  String?
+
+  price        Float
+  maxPeople    Int
+  hotelId      Int
+  hotel        Hotel         @relation(fields: [hotelId], references: [id])
+  roomNumbers  Int
   reservations Reservation[]
-  createdAt       DateTime      @default(now())
-  updatedAt       DateTime      @updatedAt
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
 }
 
 model Reservation {
-  id              Int           @id @default(autoincrement())
-  startDate       DateTime
-  endDate         DateTime
-  roomId          Int
-  room            Room          @relation(fields: [roomId], references: [id])
-  createdAt       DateTime      @default(now())
-  updatedAt       DateTime      @updatedAt
+  id        Int      @id @default(autoincrement())
+  startDate DateTime
+  endDate   DateTime
+  roomId    Int
+  room      Room     @relation(fields: [roomId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Photo {
-  id  Int    @id @default(autoincrement()) 
-  url String
+  id      Int    @id @default(autoincrement())
+  url     String
+  hotelId Int
+  hotel Hotel @relation(fields: [hotelId], references: [id])
 }
 
 enum Role {
@@ -81,5 +86,3 @@ enum HotelType {
   HOTEL
   APPARTEMENT
 }
-
-

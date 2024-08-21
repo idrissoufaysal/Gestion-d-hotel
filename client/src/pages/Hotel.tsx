@@ -13,6 +13,7 @@ import { useSearchStore } from "../states/store";
 import { useAuth } from "../states/userStore";
 import Reserve from "../components2/Reserve";
 import { useDays } from "../hooks/useDays";
+import { Button } from "@/components/ui/button";
 const Hotel = () => {
   const photo = [
     {
@@ -113,10 +114,13 @@ const Hotel = () => {
             <span className="hotelPrice">
               Book a stay over ${data?.cheapesPrice} at this property and get a
               free aiport taxi
-
-              <span className="text-stone-700">l'hotel conitent {data?.rooms.length} </span>
+              <span className="text-stone-700">
+                l'hotel conitent {data?.rooms.length}{" "}
+              </span>
             </span>
-            <button className="book1">Book now</button>
+            <Button className="absolute top-1 right-[6px]" onClick={handleClick}>
+              Book now
+            </Button>
             <div className="hotelImages">
               {photo.map((p, i) => (
                 <div key={i} className="hotelImgWrapper">
@@ -136,14 +140,15 @@ const Hotel = () => {
                   excellent location score of 9.8
                 </span>
                 <h2>
-                  <b>${ days * (data?.cheapesPrice as number)}</b> ({days} nights)
+                  <b>${days * (data?.cheapesPrice as number)}</b> ({days}{" "}
+                  nights)
                 </h2>
-                <button
+                <Button
                   onClick={handleClick}
-                  className="cursor-pointer hover:bg-[#1267b1]"
+                  className=""
                 >
                   Reserve or Book Now !
-                </button>
+                </Button>
               </div>
             </div>
           </div>
