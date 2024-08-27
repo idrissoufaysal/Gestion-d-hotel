@@ -4,9 +4,6 @@ const upload = require("../midlleware/uploadFile");
 
 const app = express();
 
-
-
-
 const router = express.Router();
 const prisma = new PrismaClient();
 
@@ -28,12 +25,7 @@ router.get("/", async (req, res, next) => {
         },
       },
       include: {
-        rooms: {
-          include: {
-            roomNumbers: {},
-          },
-        },
-    
+        rooms: {},
       },
 
       // Limiter le nombre de résultats
@@ -113,7 +105,7 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-router.post("/",async (req, res, next) => {
+router.post("/", async (req, res, next) => {
   const {
     name,
     desc,
@@ -148,7 +140,7 @@ router.post("/",async (req, res, next) => {
 });
 
 //Ajouter les image
-router.post("/uploads",upload.array("image",5) , async (req, res, next) => {
+router.post("/uploads", upload.array("image", 5), async (req, res, next) => {
   const hotelId = parseInt(req.params.id);
   try {
     if (!req.files || req.files.length === 0) {

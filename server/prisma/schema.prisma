@@ -85,4 +85,4 @@ enum HotelType {
   MAISON
   HOTEL
   APPARTEMENT
-}
+} 

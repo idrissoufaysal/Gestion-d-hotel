@@ -20,6 +20,6 @@
   },
   "devDependencies": {
     "@prisma/client": "^5.18.0",
-    "prisma": "^5.18.0"
+    "prisma": "^5.19.0"
   }
 }

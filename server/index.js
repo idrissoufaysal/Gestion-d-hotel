@@ -35,12 +35,18 @@ app.get("/", async (req, res) => {
   res.json(users);
 });  
 
-//Database connection
+//Database connection   
 const prisma = new PrismaClient();
-
+ 
 const port = process.env.PORT ||5000;
 app.listen(port, () => console.log(`http://localhost:${port}/`));
+//DATABASE_URL="mysql://uslmitkmc9ids4qa:zOIkHOhZvnnE1wmknaB@bdylg9apqibtbtenrvuf-mysql.services.clever-cloud.com:20229/bdylg9apqibtbtenrvuf"
 
+
+
+//DATABASE_URL="mysql://root:@localhost:3306/HotelApp"
+
+  
 // const roomModel = new mongoose.Schema({
 //   name: {
 //     type: String,
@@ -54,3 +60,4 @@ app.listen(port, () => console.log(`http://localhost:${port}/`));
 // roomNumbers: [{ number: Number, unavailableDates: [{ type: Date }] }],
 
 //  });
+                       
