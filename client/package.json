@@ -63,6 +63,9 @@
   "@radix-ui/react-avatar": "^1.1.0",
   
     
+  "@radix-ui/react-label": "^2.1.0",
+  
+    
   "@radix-ui/react-popover": "^1.1.1",
   
     

@@ -21,11 +21,11 @@ function Navbar() {
     <div className="navbar">
       <div className="navContainer">
         <Link to="/">
-          <span>B13_Hotels</span>
+          <span className="text-3xl ">B13_Hotels</span>
         </Link>
 
         {currentUser ? (
-          <div className="flex">
+          <div className="flex gap-2">
             <Avatar>
               <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
               <AvatarFallback>CN</AvatarFallback>
@@ -35,7 +35,7 @@ function Navbar() {
               <IoLogOutOutline
                 className="size-8 text-red-500 cursor-pointer font-bold"
                 onClick={handleLogout}
-              />
+              />              
             </div>
           </div>
         ) : (

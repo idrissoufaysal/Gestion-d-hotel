@@ -15,6 +15,7 @@ import { useAuth } from "../states/userStore";
 import { DatePickerWithRange } from "./DateRangePicker";
 import { DateRange } from "react-day-picker";
 import { addDays } from "date-fns";
+import { Button } from "@/components/ui/button";
 
 const Header = () => {
   const [destination, setDestination] = useState("");
@@ -78,7 +79,7 @@ const Header = () => {
             <span>Airport taxis</span>
           </div>
         </div>
-        <h1>A lifetime of discounts? Genius</h1>
+        <h1 className="font-semibold text-2xlc">A lifetime of discounts? Genius</h1>
         <p className="headerDesc">
           l'oiseau sur le baobabe ne doit jamais oublier qu'il a porter des Lunette et
           aussi la genille ne porte de lunette quand elle boie l'eau
@@ -89,7 +90,7 @@ const Header = () => {
           </Link>
         )}
         <div className="headerSearch">
-          <div className="headerSearchItem">
+          <div className="headerSearchItem ">
             <LocalHotelIcon className="mr-2 text-couleur-principale" />
             <input
               type="text"
@@ -152,9 +153,9 @@ const Header = () => {
             )}
           </div>
           <div className="headerSearchItem">
-            <button className="btn" onClick={handleSearch}>
+            <Button className=" " onClick={handleSearch}>
               Search
-            </button>
+            </Button>
           </div>
         </div>
       </div>

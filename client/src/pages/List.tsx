@@ -9,6 +9,8 @@ import { Property } from "../utils/types";
 import { useSearchStore } from "../states/store";
 import { DatePickerWithRange } from "../components2/DateRangePicker";
 import { DateRange } from "react-day-picker";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 export default function List() {
   const location = useLocation();
@@ -57,9 +59,9 @@ export default function List() {
           <div className="listWrapper">
             <div className="listSearch">
               <h1>Search</h1>
-              <div className="lsItem">
-                <label htmlFor="">Destination</label>
-                <input
+              <div className="grid w-full max-w-sm items-center gap-1.5">
+                <Label htmlFor="email">Destination</Label>
+                <Input
                   type="text"
                   placeholder={destination}
                   onChange={(e) => setDestination(e.target.value)}
