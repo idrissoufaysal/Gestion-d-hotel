@@ -10,7 +10,7 @@ export default function Feature() {
   return (
     <div className="featured">
       {loading ? (
-        "Loading..."
+      "loading..."
       ) : (
         data && data.length >= 3 ? (
           <>

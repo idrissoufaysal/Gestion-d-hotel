@@ -14,7 +14,6 @@ import { Label } from "@/components/ui/label";
 
 export default function List() {
   const location = useLocation();
-  const [openDate, setOpenDate] = useState(false);
   const [destination, setDestination] = useState(location.state.destination);
   const [options, setoptions] = useState(location.state.options);
   //const [date, setDate] = useState(location.state.date);
@@ -45,10 +44,6 @@ export default function List() {
     console.log(min);
     console.log(max);
     reFetch();
-  };
-  const handleDateChange = (range: DateRange) => {
-    setDate(range);
-    setDates;
   };
 
   return (
