@@ -34,7 +34,7 @@ const Reserve = ({
 
   const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    await axios.post(`${ApiUrl}/room/reservation/${roomId}`)
+    await axios.post(`${ApiUrl}/room/reservation`)
     console.log("reserve avec succes");
   };
 
