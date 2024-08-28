@@ -1,6 +1,7 @@
 import image from "../assets/images/interior-2685521_640.jpg";
 import useFetch from "../hooks/useFetch";
 import { Property } from "../utils/types";
+import Loading from "./Loading";
 
 const FeaturedProperty = () => {
 
@@ -9,7 +10,9 @@ const FeaturedProperty = () => {
 
   return (
     <div className="fp">
-      {loading ? "Loading...." :
+      {loading ? ( <div className="w-full flex justify-center">
+                  <Loading />
+                </div>) :
         <>
           {data ? data?.map(item => (
 

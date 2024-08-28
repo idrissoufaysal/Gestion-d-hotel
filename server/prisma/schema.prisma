@@ -49,10 +49,10 @@ model Room {
   desc  String?
 
   price        Float
-  maxPeople    Int
+  maxPeople    Int?
   hotelId      Int
   hotel        Hotel         @relation(fields: [hotelId], references: [id])
-  roomNumbers  Int
+  roomNumbers  Int  
   reservations Reservation[]
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
@@ -81,8 +81,10 @@ enum Role {
 }
 
 enum HotelType {
-  VILLA
-  MAISON
-  HOTEL
-  APPARTEMENT
+  Villa
+  Maison
+  Hotel
+  Appartement
+  Studio
+  Chateaux
 } 

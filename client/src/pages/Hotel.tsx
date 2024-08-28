@@ -9,11 +9,11 @@ import { useState } from "react";
 import useFetch from "../hooks/useFetch";
 import { Property } from "../utils/types";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useSearchStore } from "../states/store";
 import { useAuth } from "../states/userStore";
 import Reserve from "../components2/Reserve";
 import { useDays } from "../hooks/useDays";
 import { Button } from "@/components/ui/button";
+import Loading from "../components2/Loading";
 const Hotel = () => {
   const photo = [
     {
@@ -40,7 +40,7 @@ const Hotel = () => {
   const hotelId = location.pathname.split("/")[2];
   // console.log(hotelId);
   const navigate = useNavigate();
-  const { options } = useSearchStore();
+  //const { options } = useSearchStore();
   const { days } = useDays();
   const { data, loading } = useFetch<Property>(`/hotel/${parseInt(hotelId)}`);
   const [openImage, setOpenImage] = useState(false);
@@ -82,7 +82,9 @@ const Hotel = () => {
     <div className="relative">
       <Navbar />
       {loading ? (
-        "Loading..."
+         <div className="w-full flex justify-center items-center h-full mt-60">
+         <Loading />
+       </div>
       ) : (
         <div className="hotelContainer">
           {openImage && (
@@ -140,14 +142,13 @@ const Hotel = () => {
                   excellent location score of 9.8
                 </span>
                 <h2>
-                  <b>${days * (data?.cheapesPrice as number)}</b> ({days}{" "}
+                  <b>${days! * (data?.cheapesPrice as number)}</b> ({days}{" "}
                   nights)
                 </h2>
                 <Button
                   onClick={handleClick}
-                  className=""
                 >
-                  Reserve or Book Now !
+                  Reserver une chambre
                 </Button>
               </div>
             </div>

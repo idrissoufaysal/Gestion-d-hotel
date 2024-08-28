@@ -6,7 +6,7 @@ const app = express();
 
 const router = express.Router();
 const prisma = new PrismaClient();
-
+  
 //Afficher tous les hotel
 router.get("/", async (req, res, next) => {
   try {
@@ -60,14 +60,14 @@ router.get("/countByCity", async (req, res, next) => {
 //Afficher les hotel par type
 router.get("/countByType", async (req, res, next) => {
   try {
-    const hotelCount = await prisma.hotel.count({ where: { type: "hotel" } });
-    const villaCount = await prisma.hotel.count({ where: { type: "villa" } });
+    const hotelCount = await prisma.hotel.count({ where: { type: "Hotel" } });
+    const villaCount = await prisma.hotel.count({ where: { type: "Villa" } });
     const appartementCount = await prisma.hotel.count({
-      where: { type: "appartement" },
+      where: { type: "Appartement" },
     });
-    const studioCount = await prisma.hotel.count({ where: { type: "studio" } });
+    const studioCount = await prisma.hotel.count({ where: { type: "Studio" } });
     const chateauxCount = await prisma.hotel.count({
-      where: { type: "chateaux" },
+      where: { type: "Chateaux" },
     });
 
     res.status(200).json([
@@ -90,9 +90,6 @@ router.get("/:id", async (req, res, next) => {
       where: { id: parseInt(hotelId) },
       include: {
         rooms: {
-          include: {
-            roomNumbers: {},
-          },
         },
       },
     });
@@ -137,11 +134,11 @@ router.post("/", async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-});
+});  
 
 //Ajouter les image
-router.post("/uploads", upload.array("image", 5), async (req, res, next) => {
-  const hotelId = parseInt(req.params.id);
+router.post("/:hotelId/uploads", upload.array("image", 10), async (req, res, next) => {
+  const hotelId = parseInt(req.params.hotelId);
   try {
     if (!req.files || req.files.length === 0) {
       return res.status(400).json({ error: "No files uploaded" });

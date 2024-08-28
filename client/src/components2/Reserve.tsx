@@ -7,6 +7,8 @@ import { DateRange } from "react-day-picker";
 import { Button } from "@/components/ui/button";
 
 import { useState } from "react";
+import axios from "axios";
+import Loading from "./Loading";
 // import axios from "axios";
 
 const Reserve = ({
@@ -30,11 +32,10 @@ const Reserve = ({
     to: dates.to,
   });
 
-  const handleSubmit = async(event:React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault()
- console.log('reserve avec succes');
-
- 
+  const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    await axios.post(`http://localhost:8000/room/reservation/${roomId}`)
+    console.log("reserve avec succes");
   };
 
   console.log(data);
@@ -55,9 +56,9 @@ const Reserve = ({
 
           <div className="w-full flex justify-center items-center ">
             {loading ? (
-              <div className="spinner-border text-primary" role="status">
-                <span className="sr-only">Loading...</span>
-              </div>
+              <div className="w-full flex justify-center items-center h-full">
+              <Loading />
+            </div>
             ) : (
               data?.map((room) => (
                 <div
@@ -71,14 +72,12 @@ const Reserve = ({
                       <span className="font-bold ">Prix :{room.price} $$</span>
                     </div>
 
-                    {room.roomNumbers.map((rNumber) => (
-                      <div className="flex">
-                        <div className="flex flex-col">
-                          <input type="checkbox" />
-                          <span>{rNumber.number}</span>
-                        </div>
+                    <div className="flex">
+                      <div className="flex flex-col">
+                        <input type="checkbox" />
+                        <span>{room.roomNumbers}</span>
                       </div>
-                    ))}
+                    </div>
                   </div>
 
                   <div className="flex justify-between">
@@ -89,7 +88,7 @@ const Reserve = ({
                         setDates(d as DateRange | undefined); // Met à jour l'état global
                       }}
                     />
-                    <Button onClick={handleSubmit} >reserver </Button>
+                    <Button onClick={handleSubmit}>reserver </Button>
                   </div>
                 </div>
               ))

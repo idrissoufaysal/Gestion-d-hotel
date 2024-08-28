@@ -7,15 +7,7 @@ const prisma = new PrismaClient();
 //Afficher tous les room
 router.get("/", async (req, res, next) => {
   try {
-    const rooms = await prisma.room.findMany({
-      include: {
-        roomNumbers: {
-          include: {
-            unavailableDates: {},
-          },
-        },
-      },
-    });
+    const rooms = await prisma.room.findMany({});
     rooms.length == 0
       ? res.json("c'est carement vide")
       : res.status(200).json(rooms);
@@ -31,15 +23,7 @@ router.get("/hotel/:hotelId", async (req, res, next) => {
     const existingHotel = await prisma.hotel.findUnique({
       where: { id: hotelId },
       include: {
-        rooms: {
-          include: {
-            roomNumbers: {
-              include: {
-                unavailableDates: {},
-              },
-            },
-          },
-        },
+        rooms: {},
       },
     });
     if (!existingHotel) {
@@ -59,13 +43,6 @@ router.get("/:id", async (req, res, next) => {
   try {
     const existingRoom = await prisma.room.findUnique({
       where: { id: parseInt(roomId) },
-      include: {
-        roomNumbers: {
-          include: {
-            unavailableDates,
-          },
-        },
-      },
     });
     if (!existingRoom) {
       return res.status(404).json("Room introuvable !!!");
@@ -83,9 +60,9 @@ router.put("/reservation/:roomId", async (req, res, next) => {
   const { dates } = req.body;
   try {
     const existingRoom = await prisma.unavailableDate.update({
-        where: { id: roomId },
-        data:{dates}
-  }); 
+      where: { id: roomId },
+      data: { dates },
+    });
 
     if (!existingRoom) {
       return res.status(404).json({ message: "Chambre non trouvée" });
@@ -97,8 +74,8 @@ router.put("/reservation/:roomId", async (req, res, next) => {
 });
 
 //Ajouter une chambre dans une hotels
-router.post("/:id", async (req, res, next) => {
-  const hotelId = parseInt(req.params.id);
+router.post("/:hotelId", async (req, res, next) => {
+  const hotelId = parseInt(req.params.hotelId);
   const { title, price, maxPeople, desc, roomNumbers } = req.body;
 
   const existingHotel = await prisma.hotel.findUnique({
@@ -109,27 +86,6 @@ router.post("/:id", async (req, res, next) => {
   }
 
   try {
-    if (!Array.isArray(roomNumbers)) {
-      return res
-        .status(400)
-        .json({ message: "roomNumbers doit être un tableau" });
-    }
-
-    // Validation et formatage des dates
-    roomNumbers.forEach((roomNumber) => {
-      if (!Array.isArray(roomNumber.unavailableDates)) {
-        roomNumber.unavailableDates = [];
-      }
-
-      roomNumber.unavailableDates = roomNumber.unavailableDates.map((date) => {
-        const parsedDate = new Date(date);
-        if (isNaN(parsedDate.getTime())) {
-          throw new Error(`Date invalide: ${JSON.stringify(date)}`);
-        }
-        return parsedDate;
-      });
-    });
-
     //Creation d'une room avec les numeros de chambre
     const newRoom = await prisma.room.create({
       data: {
@@ -138,18 +94,7 @@ router.post("/:id", async (req, res, next) => {
         maxPeople,
         desc,
         hotelId,
-        roomNumbers: {
-          create: roomNumbers?.map((roomNumber) => ({
-            number: roomNumber.number,
-            unavailableDates: roomNumber.unavailableDates?.length
-              ? {
-                  create: roomNumber.unavailableDates.map((date) => ({
-                    date: new Date(date),
-                  })),
-                }
-              : undefined,
-          })),
-        },
+        roomNumbers,
       },
     });
 

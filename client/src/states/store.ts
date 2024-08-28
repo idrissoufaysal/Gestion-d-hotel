@@ -7,9 +7,9 @@ const INITIAL_STATE: State = {
   city: undefined,
   dates: { from: new Date(Date.now()), to: addDays(new Date(Date.now()), 10) },
   options: {
-    adult: undefined,
-    children: undefined,
-    room: undefined,
+    adult: 1,
+    children: 0,
+    room: 1,
   },
 };
 

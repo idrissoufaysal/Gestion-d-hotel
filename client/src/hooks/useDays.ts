@@ -3,7 +3,7 @@ import { useSearchStore } from "../states/store";
 import { differenceInCalendarDays } from "date-fns";
 
 export const useDays = () => {
-  const [days, setDays] = useState<number>(0);
+  const [days, setDays] = useState<number |undefined>(0);
   const { dates } = useSearchStore();
 
   useEffect(() => {

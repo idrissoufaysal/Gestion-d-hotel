@@ -51,7 +51,7 @@ const Header = () => {
     setDates(date);
     
     setOptions(options);
-    navigate("/hotels", { state: { destination, date, options } });
+    navigate("/hotels", { state: { options } });
   };
   const { currentUser } = useAuth();
 

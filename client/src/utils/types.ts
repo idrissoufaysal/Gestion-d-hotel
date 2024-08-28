@@ -1,4 +1,4 @@
-import { DateRange } from "react-day-picker"
+import { DateRange } from "react-day-picker";
 
 export interface DateSelection {
   startDate: Date;
@@ -13,10 +13,10 @@ export interface Options {
   room?: number;
 }
 
-export interface State{
-  city?: string,
-  dates: DateRange ,
-  options: Options
+export interface State {
+  city?: string;
+  dates: DateRange;
+  options: Options;
 }
 
 export interface StoreState extends State {
@@ -25,8 +25,7 @@ export interface StoreState extends State {
   setOptions: (options: Options) => void;
   resetSearch: () => void;
 }
-///////////////////////////////////////////////////////////  
-
+///////////////////////////////////////////////////////////
 
 ////USER AUTH/////////////////////////
 export interface User {
@@ -37,7 +36,7 @@ export interface User {
   isAdmin: boolean;
   createdAt: string;
   updatedAt: string;
-  role: 'USER' | 'ADMIN';
+  role: "USER" | "ADMIN";
 }
 
 export interface AuthResponse {
@@ -47,19 +46,18 @@ export interface AuthResponse {
 
 ///////////////////////////////////////
 
-
 export interface Home1 {
-  image: string,
-  title: string,
-  title2: string
-  price?: number
+  image: string;
+  title: string;
+  title2: string;
+  price?: number;
 }
 
 export interface Home2 {
-  image: string,
-  title: string,
-  title2: string
-  price?: number
+  image: string;
+  title: string;
+  title2: string;
+  price?: number;
 }
 
 export interface PropertyType {
@@ -90,16 +88,30 @@ export interface Room {
   price: number;
   maxPeople: number;
   hotelId: number;
-  roomNumbers: RoomNumber[];
+  roomNumbers: number;
 }
 
 // Type pour un tableau de Room
 
+//type pour les hotels
+export enum Type {
+  Villa,
+  Maison,
+  Hotel,
+  Appartement,
+  Studio,
+  Chateaux,
+}
+
+export interface OptionsType {
+  value: "Villa"| "Maison"| "Hotel"|"Appartement"|"Studio"| "Chateaux";
+  label?: "Villa"| "Maison"| "Hotel"|"Appartement"|"Studio"| "Chateaux";
+}
 
 export interface Property {
   id: number;
   name: string;
-  type: string;
+  type: Type;
   city: string;
   address: string;
   distance: string;
@@ -110,6 +122,3 @@ export interface Property {
   rating: number;
   rooms: Room[];
 }
-
-
-

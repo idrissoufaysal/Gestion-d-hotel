@@ -341,7 +341,7 @@
 
       .hotelDetailsPrice {
         flex: 1;
-        background-color: rgba(40, 143, 233, 0.25);
+        background-color: rgba(72, 76, 78, 0.25);
         flex-direction: column;
         gap: 10px;
         display: flex;
@@ -357,16 +357,6 @@
         }
 
         h2 {
-          font-weight: 300;
-        }
-
-        button {
-          background-color: $bleu_clair;
-          padding: 10px 20px;
-          color: white;
-          border: none;
-          border-radius: 4px;
-          cursor: pointer;
           font-weight: 300;
         }
       }
