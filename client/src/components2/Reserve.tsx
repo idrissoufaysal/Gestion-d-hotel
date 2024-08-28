@@ -1,5 +1,5 @@
 import { IoMdClose } from "react-icons/io";
-import { Property, Room } from "../utils/types";
+import { ApiUrl, Property, Room } from "../utils/types";
 import useFetch from "../hooks/useFetch";
 import { DatePickerWithRange } from "./DateRangePicker";
 import { useSearchStore } from "../states/store";
@@ -34,7 +34,7 @@ const Reserve = ({
 
   const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    await axios.post(`http://localhost:8000/room/reservation/${roomId}`)
+    await axios.post(`${ApiUrl}/room/reservation/${roomId}`)
     console.log("reserve avec succes");
   };
 

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import axios from 'axios'
+import { ApiUrl } from "../utils/types"
 
 const useFetch = <T,>(url: string) => {
     const [loading, setLoading] = useState(false)
@@ -11,7 +12,7 @@ const useFetch = <T,>(url: string) => {
         const fetch = async () => {
             setLoading(true)
             try {
-                const res = await axios.get(`http://localhost:8000${url}`)
+                const res = await axios.get(`${ApiUrl}${url}`)
                 setData(res.data as T)
                 console.log(res.data)
 

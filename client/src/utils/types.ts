@@ -1,5 +1,5 @@
 import { DateRange } from "react-day-picker";
-
+export const ApiUrl="http://localhost:8000"
 export interface DateSelection {
   startDate: Date;
   endDate: Date;

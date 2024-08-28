@@ -13,7 +13,7 @@ const Login = () => {
 
     //     //setEmail(e.target.value)
     // }
-    const { currentUser, login, error, status } = useAuth()
+    const { login, error, status } = useAuth()
 
 
     const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -31,7 +31,6 @@ const Login = () => {
             setErrorStatus(true),
             setErroMessage(error as string),
             console.log(error));
-            console.log(currentUser);
         }
     }
 
