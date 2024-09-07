@@ -94,7 +94,7 @@ const Reserve = ({
                         setDates(d as DateRange | undefined); // Met à jour l'état global
                       }}
                     />
-                    <Button onClick={handleSubmit(room.id)}>reserver </Button>
+                    <Button onClick={handleSubmit()}>reserver </Button>
                   </div>
                 </div>
               ))
