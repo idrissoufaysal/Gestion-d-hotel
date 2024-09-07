@@ -33,15 +33,32 @@ const Reserve = ({
     to: dates.to,
   });
 
-  const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>,roomId:number) => {
+  const handleSubmit = async (
+    event: React.MouseEvent<HTMLButtonElement>,
+    roomId: number
+  ) => {
     event.preventDefault();
-    await axios.put(`${ApiUrl}/room/reservation/${roomId}`);
-    console.log("reserve avec succes");
-    toast({
-      title: "Uh oh! Something went wrong.",
-      description: "There was a problem with your request.",
-      color:"red"
-    });
+
+    try {
+      await axios.put(`${ApiUrl}/room/reservation/${roomId}`, { dates });
+      console.log("Réservé avec succès");
+
+      // Toast de succès
+      toast({
+        title: "Réservation réussie",
+        description: "Votre chambre a été réservée avec succès.",
+        color: "green", // Couleur pour le succès
+      });
+    } catch (error) {
+      console.error("Erreur lors de la réservation:", error);
+
+      // Toast d'erreur
+      toast({
+        title: "Erreur",
+        description: "Un problème est survenu lors de votre demande.",
+        color: "red", // Couleur pour l'erreur
+      });
+    }
   };
 
   console.log(data);
@@ -94,7 +111,9 @@ const Reserve = ({
                         setDates(d as DateRange | undefined); // Met à jour l'état global
                       }}
                     />
-                    <Button onClick={handleSubmit()}>reserver </Button>
+                    <Button onClick={(e) => handleSubmit(e, room.id)}>
+                      reserver
+                    </Button>
                   </div>
                 </div>
               ))
