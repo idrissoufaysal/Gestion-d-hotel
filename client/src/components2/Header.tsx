@@ -86,7 +86,7 @@ const Header = () => {
         </p>
         {!currentUser && (
           <Link to="/login">
-            <button className="btn">Sign in / Register</button>
+            <Button  variant={"secondary"} >Sign in / Register</Button>
           </Link>
         )}
         <div className="headerSearch">

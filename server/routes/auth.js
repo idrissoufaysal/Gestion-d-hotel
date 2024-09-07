@@ -65,7 +65,16 @@ router.post("/login", async (req, res, next) => {
 
 //Logout
 router.post("/logout", async (req, res, next) => {
+  console.log('deconnection....');
+  
   try {
+    res
+    .clearCookie("accessToken", {
+      secure: true,
+      sameSite: "none",
+    })
+    .status(200)
+    .json("l'utilisateur a ete deconnecte");
   } catch (error) {
     next(error);
   }

@@ -76,18 +76,13 @@
 
     .listSearch {
       flex: 1;
-      background-color: $jaune-moutarde;
+     // background-color: $jaune-moutarde;
       padding: 10px;
       border-radius: 10px;
       position: sticky;
       top: 10px;
       height: max-content;
 
-      h1 {
-        font-size: 20px;
-        color: $gris-sombre;
-        margin-bottom: 10px;
-      }
 
       .lsItem {
         display: flex;

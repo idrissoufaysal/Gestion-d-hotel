@@ -59,10 +59,7 @@ router.put("/reservation/:roomId", async (req, res, next) => {
   const roomId = parseInt(req.params.roomId);
   const { dates } = req.body;
   try {
-    const existingRoom = await prisma.unavailableDate.update({
-      where: { id: roomId },
-      data: { dates },
-    });
+   
 
     if (!existingRoom) {
       return res.status(404).json({ message: "Chambre non trouvée" });
@@ -85,7 +82,7 @@ router.post("/:hotelId", async (req, res, next) => {
     return res.status(404).json({ message: "Hotel non trouvé" });
   }
 
-  try {
+  try { 
     //Creation d'une room avec les numeros de chambre
     const newRoom = await prisma.room.create({
       data: {

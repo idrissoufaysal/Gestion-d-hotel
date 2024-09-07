@@ -75,6 +75,9 @@
   "@radix-ui/react-slot": "^1.1.0",
   
     
+  "@radix-ui/react-toast": "^1.2.1",
+  
+    
   "@syncfusion/ej2-react-calendars": "^26.2.8",
   
     
@@ -94,6 +97,9 @@
   
     
   "dayjs": "^1.11.12",
+  
+    
+  "embla-carousel-react": "^8.2.1",
   
     
   "install": "^0.13.0",

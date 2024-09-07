@@ -7,6 +7,7 @@ import Hotel from "./pages/Hotel";
 
 import "./styles/components.scss";
 import "./styles/pages.scss";
+import { Toaster } from "@/components/ui/toaster"
 
 function App() {
   const router = createBrowserRouter([
@@ -35,6 +36,7 @@ function App() {
   return (
     <div className="app">
       <RouterProvider router={router} />
+      <Toaster/>
     </div>
   );
 }

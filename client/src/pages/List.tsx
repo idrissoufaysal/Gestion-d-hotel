@@ -12,6 +12,7 @@ import { DateRange } from "react-day-picker";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Loading from "../components2/Loading";
+import { Button } from "@/components/ui/button";
 
 export default function List() {
   const location = useLocation();
@@ -57,8 +58,8 @@ console.log(location);
       <div className="list">
         <div className="listContainer">
           <div className="listWrapper">
-            <div className="listSearch flex flex-col gap-2">
-              <h1>Search</h1>
+            <div className="listSearch flex flex-col gap-2 bg-stone-400">
+              <h1 className="text-black font-bold text-3xl mb-3">Search</h1>
               <div className="grid w-full max-w-sm items-center gap-1">
                 <Label htmlFor="email">Destination</Label>
                 <Input
@@ -116,9 +117,9 @@ console.log(location);
                     <input type="number" min={1} placeholder={_options?.room?.toString()} />
                   </div>
                 </div>
-                <button className="btn" onClick={handleClick}>
-                  Search
-                </button>
+                <Button className="" onClick={handleClick}>
+                  Rechercher
+                </Button>
               </div>
             </div>
             <div className="listResult">

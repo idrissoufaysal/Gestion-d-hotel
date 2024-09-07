@@ -5,10 +5,11 @@ import { DatePickerWithRange } from "./DateRangePicker";
 import { useSearchStore } from "../states/store";
 import { DateRange } from "react-day-picker";
 import { Button } from "@/components/ui/button";
-
+import { useToast } from "@/components/hooks/use-toast";
 import { useState } from "react";
 import axios from "axios";
 import Loading from "./Loading";
+import { ToastAction } from "@/components/ui/toast";
 // import axios from "axios";
 
 const Reserve = ({
@@ -21,6 +22,7 @@ const Reserve = ({
   const { data, error, loading } = useFetch<Room[]>(
     `/room/hotel/${dataItem.id}`
   );
+  const { toast } = useToast();
 
   if (error) console.log(error);
 
@@ -34,8 +36,13 @@ const Reserve = ({
 
   const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    await axios.post(`${ApiUrl}/room/reservation`)
+    //await axios.post(`${ApiUrl}/room/reservation`);
     console.log("reserve avec succes");
+    toast({
+      title: "Uh oh! Something went wrong.",
+      description: "There was a problem with your request.",
+      color:"red"
+    });
   };
 
   console.log(data);
@@ -57,8 +64,8 @@ const Reserve = ({
           <div className="w-full flex justify-center items-center ">
             {loading ? (
               <div className="w-full flex justify-center items-center h-full">
-              <Loading />
-            </div>
+                <Loading />
+              </div>
             ) : (
               data?.map((room) => (
                 <div
