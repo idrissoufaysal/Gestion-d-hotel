@@ -1,3 +1,4 @@
+import { time } from 'console'
 import React from 'react'
 
 export default function Footer() {
@@ -29,7 +30,7 @@ export default function Footer() {
             <li className="fListItem">Hotels </li>
         </ul>
        </div>
-       <div className="fText">Copyright @ 2024 by Agent_B13</div>
+       <div className="fText flex gap-3">Copyright @ 2024 by Agent_B13  email: idrissoufaysal93@gmail.com</div>
     </div>
   )
 }

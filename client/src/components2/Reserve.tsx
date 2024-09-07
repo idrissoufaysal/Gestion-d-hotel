@@ -9,7 +9,6 @@ import { useToast } from "@/components/hooks/use-toast";
 import { useState } from "react";
 import axios from "axios";
 import Loading from "./Loading";
-import { ToastAction } from "@/components/ui/toast";
 // import axios from "axios";
 
 const Reserve = ({
@@ -34,9 +33,9 @@ const Reserve = ({
     to: dates.to,
   });
 
-  const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>,roomId:number) => {
     event.preventDefault();
-    //await axios.post(`${ApiUrl}/room/reservation`);
+    await axios.put(`${ApiUrl}/room/reservation/${roomId}`);
     console.log("reserve avec succes");
     toast({
       title: "Uh oh! Something went wrong.",
@@ -53,8 +52,8 @@ const Reserve = ({
           <div className="absolute top-2 right-2">
             <IoMdClose
               onClick={setOpen}
-              fontSize={20}
-              className="cursor-pointer hover:text-red-500"
+              fontSize={30}
+              className="cursor-pointer hover:text-black transition-all   text-stone-600"
             />
           </div>
           <span className="text-center text-2xl mt-9 text-couleur-principale">
@@ -95,7 +94,7 @@ const Reserve = ({
                         setDates(d as DateRange | undefined); // Met à jour l'état global
                       }}
                     />
-                    <Button onClick={handleSubmit}>reserver </Button>
+                    <Button onClick={handleSubmit(room.id)}>reserver </Button>
                   </div>
                 </div>
               ))

@@ -12,7 +12,7 @@ function Navbar() {
 
   const handleLogout = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    logout(currentUser!.user).then((res)=>(
+    logout(currentUser!.user).then(()=>(
       navigate('/login'),
       status == true && console.log('logout avec succes'),
       error && console.log(error)
@@ -25,7 +25,7 @@ function Navbar() {
     <div className="navbar">
       <div className="navContainer">
         <Link to="/">
-          <span className="text-3xl text-slate-400">B13_Hotels</span>
+          <span className="text-3xl text-[#d8e5f7] font-semibold">B13_Hotels</span>
         </Link>
 
         {currentUser ? (

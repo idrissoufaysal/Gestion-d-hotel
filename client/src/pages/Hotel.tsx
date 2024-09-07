@@ -14,6 +14,7 @@ import Reserve from "../components2/Reserve";
 import { useDays } from "../hooks/useDays";
 import { Button } from "@/components/ui/button";
 import Loading from "../components2/Loading";
+
 const Hotel = () => {
   const photo = [
     {
@@ -113,11 +114,11 @@ const Hotel = () => {
             <span className="hotelDistance">
               Excellent location {data?.distance} from center
             </span>
-            <span className="hotelPrice">
+            <span className="hotelPrice flex gap-2 flex-col">
               Book a stay over ${data?.cheapesPrice} at this property and get a
               free aiport taxi
               <span className="text-stone-700">
-                l'hotel conitent {data?.rooms.length}{" "}
+                la propriete conitent {data?.rooms.length}{" "} chambre
               </span>
             </span>
             <Button className="absolute top-1 right-[6px]" onClick={handleClick}>

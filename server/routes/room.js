@@ -54,17 +54,48 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
+
+
+
 //reservation d'un room
 router.put("/reservation/:roomId", async (req, res, next) => {
   const roomId = parseInt(req.params.roomId);
   const { dates } = req.body;
   try {
-   
-
+    const existingRoom = await prisma.room.findUnique({
+      where: { id: roomId },
+    });
     if (!existingRoom) {
       return res.status(404).json({ message: "Chambre non trouvée" });
     }
-    res.status(200).json("chambre reserver avec succes");
+
+    //Verifie si la chambre est disponible pour les dates de reservation
+    const isRoomAvailable = await prisma.reservation.findMany({
+      where: {
+        roomId,
+        OR: [
+          { AND: [{ startDate: { lte: dates.startDate }, endDate: { gte: dates.startDate } }] },
+          { AND: [{ startDate: { gte: dates.endDate }, endDate: { lte: dates.endDate } }] },
+        ],
+      },
+    });
+  
+    if (isRoomAvailable.length > 0) {
+      return res.status(202).json({ message: "Chambre déjà réservée",status:false });
+    }
+
+    //Reservation de la chambre
+    await prisma.reservation.create({
+      data: {
+        roomId,
+        startDate: dates.startDate,
+        endDate: dates.endDate,
+      },
+    });
+
+    console.log("Reservation effectuée avec succes");
+    
+    res.status(200).json({message:"chambre reserver avec succes",status:true});
   } catch (error) {
     next(error);
   }
@@ -82,7 +113,7 @@ router.post("/:hotelId", async (req, res, next) => {
     return res.status(404).json({ message: "Hotel non trouvé" });
   }
 
-  try { 
+  try {
     //Creation d'une room avec les numeros de chambre
     const newRoom = await prisma.room.create({
       data: {
