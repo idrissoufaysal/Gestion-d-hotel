@@ -7,13 +7,15 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
 import useFetch from "../hooks/useFetch";
-import { Property } from "../utils/types";
+import { Photo, Property } from "../utils/types";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../states/userStore";
 import Reserve from "../components2/Reserve";
 import { useDays } from "../hooks/useDays";
 import { Button } from "@/components/ui/button";
 import Loading from "../components2/Loading";
+import { formatPhotoUrl } from "../utils/function";
+import { log } from "console";
 
 const Hotel = () => {
   const photo = [
@@ -56,14 +58,14 @@ const Hotel = () => {
   const handleSlider = (action: "s" | "r") => {
     let newSlideNumber;
     if (action == "s") {
-      newSlideNumber = sliderIndex == 5 ? 0 : sliderIndex + 1; //setSliderIndex(sliderIndex + 1);
+      newSlideNumber = sliderIndex == data?.photos.length ? 0 : sliderIndex + 1; //setSliderIndex(sliderIndex + 1);
       setSliderIndex(newSlideNumber);
     }
     if (action == "r") {
-      newSlideNumber = sliderIndex == 0 ? 5 : sliderIndex - 1;
+      newSlideNumber = sliderIndex == 0 ? data?.photos.length : sliderIndex - 1;
 
       //setSliderIndex(sliderIndex -1);
-      setSliderIndex(newSlideNumber);
+      setSliderIndex(newSlideNumber as number);
     }
   };
 
@@ -78,6 +80,7 @@ const Hotel = () => {
       navigate("/register");
     }
   };
+console.log(data?.photos.length)
 
   return (
     <div className="relative">
@@ -96,7 +99,7 @@ const Hotel = () => {
                   className="b"
                   onClick={() => handleSlider("r")}
                 />
-                <img src={photo[sliderIndex].src} alt="" />
+                <img src={formatPhotoUrl(data?.photos[sliderIndex].url as string)} alt="" />
                 <ArrowForwardIosIcon
                   className="b"
                   onClick={() => handleSlider("s")}
@@ -125,9 +128,9 @@ const Hotel = () => {
               Book now
             </Button>
             <div className="hotelImages">
-              {photo.map((p, i) => (
+              {data?.photos.map((p, i) => (
                 <div key={i} className="hotelImgWrapper">
-                  <img src={p.src} onClick={() => handlOpen(i)} alt="" />
+                  <img src={formatPhotoUrl(p.url)} onClick={() => handlOpen(i)} alt="" />
                 </div>
               ))}
             </div>

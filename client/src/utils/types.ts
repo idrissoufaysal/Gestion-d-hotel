@@ -124,7 +124,7 @@ export interface Property {
   photos:Photo[]
 }
 
-interface Photo{
+export interface Photo{
   id:number
   url:string,
   hotelId:number

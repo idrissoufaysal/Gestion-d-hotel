@@ -8,5 +8,5 @@
 // }
 
 export const formatPhotoUrl = (url: string): string => {
-    return url.replace("public/", "");
+    return `http://localhost:8000/${url.replace("public/", "")}`;
   };
