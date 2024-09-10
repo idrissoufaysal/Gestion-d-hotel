@@ -8,7 +8,8 @@ interface SearchItemProps {
 
 export default function SearchItem({ item }: SearchItemProps) {
   const location = useLocation()
-  console.log(location);
+  const type=location.search.split('=')[1]
+  console.log(location.search.split('=')[1]);
 
   return (
     <div className="searchItem">

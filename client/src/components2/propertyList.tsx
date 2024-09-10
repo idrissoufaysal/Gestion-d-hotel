@@ -13,7 +13,7 @@ const PropertyList = () => {
   const navigate=useNavigate()
   const { data, error ,loading} = useFetch<PropertyType[]>("/hotel/countByType");
 
-  console.log(data);
+  //console.log(data);
 
   if (error) {
     return <div>Erreur lors de l'affichage</div>;
@@ -26,14 +26,15 @@ const PropertyList = () => {
     );  // loading state here  // Add loading state here if needed.  // Loading state here if needed.  // Loading state here if needed.  // Loading state here if needed.  // Loading state here if needed.  // Loading state here if needed.  // Loading state here if needed.  // Loading state here if needed.  // Loading state here if needed.  // Loading state here if needed.  // Loading state here if needed.  // Loading state here if needed.  // Loading state here if needed.  // Loading state here if needed.  // Loading state here if needed.  // Loading state here if needed.  // Loading state here if needed.  // Loading state here if needed.  // Loading state here if needed.  // Loading state here if needed.  // Loading state here if needed.
   }
   const handlClick = (type: string) => {
-    navigate(`/hotels?type=${type}`, { replace: true });
+    navigate(`/hotels?type=${type}`);
   };
 
   return (
     <div className="pList">
       {data &&
         images.map((img, index) => (
-          <div className="item" key={index}>
+          
+          <div className="item" key={index} onClick={()=>handlClick(data[index]?.type)}>
             <div key={index} className="pListItem">
               <img src={img} alt="image" />
               <div className="pListTitle">
