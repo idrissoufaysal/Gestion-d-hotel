@@ -32,7 +32,7 @@ export default function Feature() {
             }}
           >
             <img src={image} alt="" />
-            <div className="featuredTitles">
+            <div className="featuredTitles font-bold">
               <h1>Lome</h1>
               <h2>({data[0]})</h2>
             </div>
@@ -46,7 +46,7 @@ export default function Feature() {
             }}
           >
             <img src={image3} alt="" />
-            <div className="featuredTitles">
+            <div className="featuredTitles font-bold">
               <h1>Kara</h1>
               <h2>({data[1]})</h2>
             </div>

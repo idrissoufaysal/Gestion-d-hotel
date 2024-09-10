@@ -6,3 +6,7 @@
 //     const days=Math.ceil(TIME_DIFF/(MILLISECOND_PER_DAYS))
 //     return days
 // }
+
+export const formatPhotoUrl = (url: string): string => {
+    return url.replace("public/", "");
+  };

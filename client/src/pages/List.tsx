@@ -27,10 +27,16 @@ export default function List() {
   });
   const [min, setMin] = useState("");
   const [max, setMax] = useState("");
+  
+  const type:string=location.search.split('=')[1]
+  console.log(location.search.split('=')[1]);
+
 
   const { data, loading, reFetch } = useFetch<Property[]>(
-    `/hotel?city=${destination}&min=${min || 0}&max=${max || 999}`
+    `/hotel?city=${destination}&min=${min || 0}&max=${max || 999}?type=${type}`
   );
+  console.log(data);
+  
 
   //console.log(destination);
 

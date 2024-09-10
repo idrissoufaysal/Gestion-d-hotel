@@ -11,7 +11,7 @@ const prisma = new PrismaClient();
 router.get("/", async (req, res, next) => {
   try {
     // Extraire les paramètres de requête
-    const { min, max, limit, featured, ...others } = req.query;
+    const { min, max, limit, featured,type, ...others } = req.query;
 
     // Requête Prisma avec les filtres et la limite
     const hotels = await prisma.hotel.findMany({
@@ -23,10 +23,13 @@ router.get("/", async (req, res, next) => {
           gte: parseInt(min) || 1,
           lte: parseInt(max) || 999,
         },
+      //...(type && { type: type }),
       },
       include: {
         rooms: {},
+        photos:{}
       },
+      
 
       // Limiter le nombre de résultats
       take: limit ? parseInt(limit) : undefined,
@@ -71,11 +74,11 @@ router.get("/countByType", async (req, res, next) => {
     });
 
     res.status(200).json([
-      { type: "chateaux", count: chateauxCount },
-      { type: "hotel", count: hotelCount },
-      { type: "villa", count: villaCount },
-      { type: "appartement", count: appartementCount },
-      { type: "studio", count: studioCount },
+      { type: "Chateaux", count: chateauxCount },
+      { type: "Hotel", count: hotelCount },
+      { type: "Villa", count: villaCount },
+      { type: "Appartement", count: appartementCount },
+      { type: "Studio", count: studioCount },
     ]);
   } catch (error) {
     next(error);
@@ -91,6 +94,7 @@ router.get("/:id", async (req, res, next) => {
       include: {
         rooms: {
         },
+        photos: {},
       },
     });
     if (!existingHotel) {
@@ -139,18 +143,20 @@ router.post("/", async (req, res, next) => {
 //Ajouter les image
 router.post("/:hotelId/uploads", upload.array("image", 10), async (req, res, next) => {
   const hotelId = parseInt(req.params.hotelId);
+  console.log("upload image");
+  
   try {
-    if (!req.files || req.files.length === 0) {
+    if (!req.files || req.files.length === 0) { 
       return res.status(400).json({ error: "No files uploaded" });
     }
 
     const imagePromise = req.files.map((file) => {
-      return prisma.image.create({
+      return prisma.photo.create({
         data: {
           url: file.path,
-          hotelId: req.body.hotelId,
+          hotelId:hotelId,
         },
-      });
+      },);
     });
     await Promise.all(imagePromise);
     res
