@@ -17,7 +17,7 @@ export default function SearchItem({ item }: SearchItemProps) {
   
   return (
     <div className="searchItem">
-      <img src={formatPhotoUrl(item.photos[0].url) || img} alt="hotel image" />
+      <img src={item?.photos ? formatPhotoUrl(item?.photos[0]?.url as string) : img} alt="hotel image" />
       <div className="siDesc">
         <h1 className="siTitle">{item.name}</h1>
         <span className="siDistance">{item.distance} from center</span>

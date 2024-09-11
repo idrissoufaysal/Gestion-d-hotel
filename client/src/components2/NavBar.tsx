@@ -48,10 +48,10 @@ function Navbar() {
         ) : (
           <div className="flex gap-2 mr-2">
             <Link to={"/login"}>
-              <Button className=" ">Login</Button>
+              <Button className=" ">Se connecter</Button>
             </Link>
             <Link to={"/register"}>
-              <Button className="">Register</Button>
+              <Button className="">s'inscrire</Button>
             </Link>
           </div>
         )}

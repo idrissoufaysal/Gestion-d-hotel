@@ -58,13 +58,13 @@ router.get("/:id", async (req, res, next) => {
 
 
 //reservation d'un room
-router.put("/reservation/:roomId", async (req, res, next) => {
+router.post("/reservation/:roomId", async (req, res, next) => {
   console.log('reservation');
   
   const roomId = parseInt(req.params.roomId);
   const { dates } = req.body;
 
-  if (!dates || !dates.startDate || !dates.endDate) {
+  if (!dates || !dates.from || !dates.to) {
     return res.status(400).json({ message: "Les dates sont requises" });
   }
 
@@ -83,8 +83,8 @@ router.put("/reservation/:roomId", async (req, res, next) => {
         OR: [
           {
             AND: [
-              { startDate: { lte: dates.endDate } },
-              { endDate: { gte: dates.startDate } },
+              { startDate: { lte: dates.from } },
+              { endDate: { gte: dates.to } },
             ],
           },
         ],

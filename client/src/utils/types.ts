@@ -121,11 +121,11 @@ export interface Property {
   featured: boolean;
   rating: number;
   rooms: Room[];
-  photos:Photo[]
+  photos?:Photo[]
 }
 
 export interface Photo{
   id:number
-  url:string,
+  url?:string,
   hotelId:number
 }

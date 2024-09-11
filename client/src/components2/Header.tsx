@@ -3,6 +3,7 @@ import FlightIcon from "@mui/icons-material/Flight";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import LocalTaxiIcon from "@mui/icons-material/LocalTaxi";
 import BoyIcon from "@mui/icons-material/Boy";
+import { FiSearch } from "react-icons/fi";
 
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
@@ -49,7 +50,7 @@ const Header = () => {
   const handleSearch = () => {
     setCity(destination);
     setDates(date);
-    
+
     setOptions(options);
     navigate("/hotels", { state: { options } });
   };
@@ -79,14 +80,16 @@ const Header = () => {
             <span>Airport taxis</span>
           </div>
         </div>
-        <h1 className="font-semibold text-2xlc">A lifetime of discounts? Genius</h1>
+        <h1 className="font-semibold text-2xlc">
+          A lifetime of discounts? Genius
+        </h1>
         <p className="headerDesc">
-          l'oiseau sur le baobabe ne doit jamais oublier qu'il a porter des Lunette et
-          aussi la genille ne porte de lunette quand elle boie l'eau
+          l'oiseau sur le baobabe ne doit jamais oublier qu'il a porter des
+          Lunette et aussi la genille ne porte de lunette quand elle boie l'eau
         </p>
         {!currentUser && (
           <Link to="/login">
-            <Button  variant={"secondary"} >Sign in / Register</Button>
+            <Button variant={"secondary"}>Se connecter/S'inscrire</Button>
           </Link>
         )}
         <div className="headerSearch">
@@ -153,8 +156,9 @@ const Header = () => {
             )}
           </div>
           <div className="headerSearchItem">
-            <Button className=" " onClick={handleSearch}>
-              Search
+            <Button className="flex items-center gap-1" onClick={handleSearch}>
+              Rechercher
+              <FiSearch />
             </Button>
           </div>
         </div>
