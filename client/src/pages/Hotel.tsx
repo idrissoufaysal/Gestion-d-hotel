@@ -7,7 +7,7 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
 import useFetch from "../hooks/useFetch";
-import { Photo, Property } from "../utils/types";
+import { Property } from "../utils/types";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../states/userStore";
 import Reserve from "../components2/Reserve";
@@ -15,31 +15,30 @@ import { useDays } from "../hooks/useDays";
 import { Button } from "@/components/ui/button";
 import Loading from "../components2/Loading";
 import { formatPhotoUrl } from "../utils/function";
-import { log } from "console";
 
 const Hotel = () => {
-  // const photo = [
-  //   {
-  //     src: "https://cdn.pixabay.com/photo/2016/11/18/17/20/living-room-1835923_1280.jpg",
-  //   },
-  //   {
-  //     src: "https://cdn.pixabay.com/photo/2014/08/11/21/39/wall-416060_640.jpg",
-  //   },
-  //   {
-  //     src: "https://cdn.pixabay.com/photo/2017/03/19/01/43/living-room-2155376_640.jpg",
-  //   },
-  //   {
-  //     src: "https://cdn.pixabay.com/photo/2018/01/26/08/15/dining-room-3108037_640.jpg",
-  //   },
-  //   {
-  //     src: "https://cdn.pixabay.com/photo/2021/10/06/15/05/bathroom-6686057_640.jpg",
-  //   },
-  //   {
-  //     src: "https://cdn.pixabay.com/photo/2024/05/20/10/34/ai-generated-8774721_640.jpg",
-  //   },
-  // ];
+  const photoUrl = [
+    {
+      src: "https://cdn.pixabay.com/photo/2016/11/18/17/20/living-room-1835923_1280.jpg",
+    },
+    {
+      src: "https://cdn.pixabay.com/photo/2014/08/11/21/39/wall-416060_640.jpg",
+    },
+    {
+      src: "https://cdn.pixabay.com/photo/2017/03/19/01/43/living-room-2155376_640.jpg",
+    },
+    {
+      src: "https://cdn.pixabay.com/photo/2018/01/26/08/15/dining-room-3108037_640.jpg",
+    },
+    {
+      src: "https://cdn.pixabay.com/photo/2021/10/06/15/05/bathroom-6686057_640.jpg",
+    },
+    {
+      src: "https://cdn.pixabay.com/photo/2024/05/20/10/34/ai-generated-8774721_640.jpg",
+    },
+  ];
 
-  const location = useLocation();
+  // const location = useLocation();
   const hotelId = location.pathname.split("/")[2];
   // console.log(hotelId);
   const navigate = useNavigate();
@@ -47,7 +46,7 @@ const Hotel = () => {
   const { days } = useDays();
   const { data, loading } = useFetch<Property>(`/hotel/${parseInt(hotelId)}`);
   const [openImage, setOpenImage] = useState(false);
-  const [sliderIndex, setSliderIndex] = useState(0);
+  const [sliderIndex, setSliderIndex] = useState<number>(0);
   const [openModal, setOpenModal] = useState(false);
 
   const handlOpen = (index: number) => {
@@ -58,11 +57,17 @@ const Hotel = () => {
   const handleSlider = (action: "s" | "r") => {
     let newSlideNumber;
     if (action == "s") {
-      newSlideNumber = sliderIndex == data?.photos.length ? 0 : sliderIndex + 1; //setSliderIndex(sliderIndex + 1);
+      newSlideNumber =
+        sliderIndex == (data?.photos.length as number) - 1
+          ? 0
+          : sliderIndex + 1; //setSliderIndex(sliderIndex + 1);
       setSliderIndex(newSlideNumber);
     }
     if (action == "r") {
-      newSlideNumber = sliderIndex == 0 ? data?.photos.length : sliderIndex - 1;
+      newSlideNumber =
+        sliderIndex == 0
+          ? (data?.photos.length as number) - 1
+          : sliderIndex - 1;
 
       //setSliderIndex(sliderIndex -1);
       setSliderIndex(newSlideNumber as number);
@@ -80,15 +85,15 @@ const Hotel = () => {
       navigate("/register");
     }
   };
-console.log(data?.photos.length)
+  console.log(data?.photos.length);
 
   return (
     <div className="relative">
       <Navbar />
       {loading ? (
-         <div className="w-full flex justify-center items-center h-full mt-60">
-         <Loading />
-       </div>
+        <div className="w-full flex justify-center items-center h-full mt-60">
+          <Loading />
+        </div>
       ) : (
         <div className="hotelContainer">
           {openImage && (
@@ -99,7 +104,14 @@ console.log(data?.photos.length)
                   className="b"
                   onClick={() => handleSlider("r")}
                 />
-                <img src={formatPhotoUrl(data?.photos[sliderIndex].url as string)} alt="" />
+                {data?.photos && data?.photos[sliderIndex]?.url ? (
+                  <img
+                    src={formatPhotoUrl(data.photos[sliderIndex].url as string)}
+                    alt="Hotel photo"
+                  />
+                ) : (
+                  <p>Aucune photo disponible</p>
+                )}{" "}
                 <ArrowForwardIosIcon
                   className="b"
                   onClick={() => handleSlider("s")}
@@ -121,16 +133,23 @@ console.log(data?.photos.length)
               Book a stay over ${data?.cheapesPrice} at this property and get a
               free aiport taxi
               <span className="text-stone-700">
-                la propriete conitent {data?.rooms.length}{" "} chambre
+                la propriete conitent {data?.rooms.length} chambre
               </span>
             </span>
-            <Button className="absolute top-1 right-[6px]" onClick={handleClick}>
+            <Button
+              className="absolute top-1 right-[6px]"
+              onClick={handleClick}
+            >
               Book now
             </Button>
             <div className="hotelImages">
               {data?.photos.map((p, i) => (
                 <div key={i} className="hotelImgWrapper">
-                  <img src={formatPhotoUrl(p.url)} onClick={() => handlOpen(i)} alt="" />
+                  <img
+                    src={formatPhotoUrl(p.url)}
+                    onClick={() => handlOpen(i)}
+                    alt=""
+                  />
                 </div>
               ))}
             </div>
@@ -149,11 +168,7 @@ console.log(data?.photos.length)
                   <b>${days! * (data?.cheapesPrice as number)}</b> ({days}{" "}
                   nights)
                 </h2>
-                <Button
-                  onClick={handleClick}
-                >
-                  Reserver une chambre
-                </Button>
+                <Button onClick={handleClick}>Reserver une chambre</Button>
               </div>
             </div>
           </div>
