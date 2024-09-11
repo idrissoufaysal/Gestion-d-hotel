@@ -8,7 +8,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
 import useFetch from "../hooks/useFetch";
 import { Property } from "../utils/types";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../states/userStore";
 import Reserve from "../components2/Reserve";
 import { useDays } from "../hooks/useDays";
@@ -58,7 +58,7 @@ const Hotel = () => {
     let newSlideNumber;
     if (action == "s") {
       newSlideNumber =
-        sliderIndex == (data?.photos.length as number) - 1
+        sliderIndex == (data?.photos?.length as number) - 1
           ? 0
           : sliderIndex + 1; //setSliderIndex(sliderIndex + 1);
       setSliderIndex(newSlideNumber);
@@ -66,7 +66,7 @@ const Hotel = () => {
     if (action == "r") {
       newSlideNumber =
         sliderIndex == 0
-          ? (data?.photos.length as number) - 1
+          ? (data?.photos?.length as number) - 1
           : sliderIndex - 1;
 
       //setSliderIndex(sliderIndex -1);
@@ -85,7 +85,6 @@ const Hotel = () => {
       navigate("/register");
     }
   };
-  console.log(data?.photos.length);
 
   return (
     <div className="relative">
@@ -143,10 +142,10 @@ const Hotel = () => {
               Book now
             </Button>
             <div className="hotelImages">
-              {data?.photos.map((p, i) => (
+              {data?.photos && data?.photos.map((p, i) => (
                 <div key={i} className="hotelImgWrapper">
                   <img
-                    src={formatPhotoUrl(p.url)}
+                    src={formatPhotoUrl(p?.url as string)}
                     onClick={() => handlOpen(i)}
                     alt=""
                   />

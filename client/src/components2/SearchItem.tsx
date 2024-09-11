@@ -13,7 +13,6 @@ export default function SearchItem({ item }: SearchItemProps) {
 
   //const type:string=location.search.split('=')[1]
   console.log(location.search.split("=")[1]);
-  console.log(formatPhotoUrl(item.photos[0].url));
   
   return (
     <div className="searchItem">

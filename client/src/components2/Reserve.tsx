@@ -1,5 +1,5 @@
 import { IoMdClose } from "react-icons/io";
-import { ApiUrl, Property, Room } from "../utils/types";
+import {Property, Room } from "../utils/types";
 import useFetch from "../hooks/useFetch";
 import { DatePickerWithRange } from "./DateRangePicker";
 import { useSearchStore } from "../states/store";
@@ -7,7 +7,6 @@ import { DateRange } from "react-day-picker";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/hooks/use-toast";
 import { useState } from "react";
-import axios from "axios";
 import Loading from "./Loading";
 import { useNavigate } from "react-router-dom";
 // import axios from "axios";
