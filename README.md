@@ -6,5 +6,3 @@
 
 
 ![Lien vers Capture d’écran du 2024-08-28 22-35-35](https://github.com/user-attachments/assets/2c538004-8207-4287-989e-6a65a9470181)
-
-![Capture d’écran du 2024-08-28 22-35-52](https://github.com/user-attachments/assets/2ac633d3-8d92-423c-a952-3e18163c488a)
